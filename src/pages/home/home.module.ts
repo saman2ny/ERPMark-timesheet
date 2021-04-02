@@ -71,6 +71,17 @@ import { MultiSelectModule } from 'primeng/multiselect';
             path: 'allocate-task',
             loadChildren: () => import('src/pages/task/task.module').
               then((({ TaskModule }) => TaskModule))
+          },
+          {
+            path: 'allocate-team',
+            loadChildren: () => import('src/pages/team/team.module').
+              then((({ TeamModule }) => TeamModule))
+          },
+          
+          {
+            path: 'allocate-sprint',
+            loadChildren: () => import('src/pages/sprints/sprints.module').
+              then((({ SprintsModule }) => SprintsModule))
           }
 
         ],

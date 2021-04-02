@@ -166,21 +166,23 @@
                             <div class="form-group">
                                 <label class="col-form-label">Employeer Designation</label>
                                 <select class="form-control" [(ngModel)]="employeer.opEmpDesg" formControlName="opEmpDesg" id="opEmpDesg">
-                                    <option value="">Designation</option>
-                                    <option value="">Designation</option>
-                                    <option value="">Designation</option>
+                                    <option value="Designation">Designation</option>
+                                    <option value="Designation">Designation</option>
+                                    <option value="Designation">Designation</option>
+                                    
                                 </select>
-                                <div class="error" *ngIf="EmployeerForm.controls['opEmpDesg'].hasError('required') && EmployeerForm.controls['opEmpDesg'].touched">
-                                    Designation is Required</div>
                             </div>
+            
+                            <div class="error" *ngIf="EmployeerForm.controls['opEmpDesg'].hasError('required') && EmployeerForm.controls['opEmpDesg'].touched">
+                                Designation is Required</div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Employeer Department</label>
                                 <select class="form-control" [(ngModel)]="employeer.opEmpDepart" formControlName="opEmpDepart" id="opEmpDepart">
-                                    <option value="">Department</option>
-                                    <option value="">Department</option>
-                                    <option value="">Department</option>
+                                    <option value="Department">Department</option>
+                                    <option value="Department">Department</option>
+                                    <option value="Department">Department</option>
                                 </select>
                             </div>
                             <div class="error" *ngIf="EmployeerForm.controls['opEmpDepart'].hasError('required') && EmployeerForm.controls['opEmpDepart'].touched">

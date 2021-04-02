@@ -11,13 +11,12 @@ import { ConstantsService } from 'src/service/constants.service';
 
 declare function datatblesandIts(): any;
 
-
 @Component({
-  selector: 'app-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.css']
+  selector: 'app-team-list',
+  templateUrl: './team-list.component.html',
+  styleUrls: ['./team-list.component.css']
 })
-export class ProjectListComponent implements OnInit {
+export class TeamListComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location
@@ -25,10 +24,12 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {
     datatblesandIts();
+
   }
 
   goToDetail(){
-    this.router.navigateByUrl('/home/allocate-project/project-detail');
+    this.router.navigateByUrl('/home/allocate-team/team-detail');
+
   }
 
 }

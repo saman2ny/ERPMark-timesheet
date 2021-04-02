@@ -4,33 +4,27 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { SprintListComponent } from './sprint-list/sprint-list.component';
+
 
 const routes: Routes = [
   {
-    path: 'list-project',
-    component: ProjectListComponent,
+    path: 'list-sprint',
+    component: SprintListComponent,
 
     
   },
-  {
-    path: 'project-detail',
-    component: ProjectDetailComponent,
-
-    
-  }
 
 ];
 
 @NgModule({
+  declarations: [SprintListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     InfiniteScrollModule
-  ],
-  declarations: [ProjectListComponent, ProjectDetailComponent]
+    ]
 })
-export class ProjectModule { }
+export class SprintsModule { }
