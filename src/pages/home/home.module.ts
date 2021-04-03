@@ -43,6 +43,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
             component: DashboardComponent
           },
           {
+            path: 'admin',
+            loadChildren: () => import('src/pages/admin/admin.module').
+              then((({ AdminModule }) => AdminModule))
+          },
+          {
             path: 'timesheet',
             loadChildren: () => import('src/pages/timesheet/timesheet.module').
               then((({ TimesheetModule }) => TimesheetModule))
