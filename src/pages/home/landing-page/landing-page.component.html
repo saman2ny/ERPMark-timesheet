@@ -86,13 +86,14 @@
                     <li class="submenu">
                         <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employers</span> <span class="menu-arrow"></span></a>
                         <ul style="display: none;">
-                            <li><a class="active" routerLink="/home/employee/list-employee">All Employer</a></li>
-                            <li><a routerLink="leaves.html">Leaves <span class="badge badge-pill bg-primary float-right">1</span></a></li>
-                            <li><a routerLink="attendance.html">Attendance</a></li>
+                            <li><a  routerLink="/home/employee/list-employee">All Employer</a></li>
+                            <!-- <li><a routerLink="/home/allocate-leave/list-leave">Leaves <span class="badge badge-pill bg-primary float-right">1</span></a></li> -->
+                            <li><a routerLink="/home/attendance/list-attendance">Attendance</a></li>
+                            <li><a routerLink="/home/allocate-leave/list-leave">Leaves</a></li>
                             <li><a routerLink="/home/department/list-department">Departments</a></li>
                             <li><a routerLink="/home/desigination/list-desigination">Designations</a></li>
-                            <li><a routerLink="timesheet.html">Timesheet</a></li>
-                            <!-- <li><a href="overtime.html">Overtime</a></li> -->
+                            <li><a routerLink="/home/timesheet/list-timesheet">Timesheet</a></li>
+                            <li><a routerLink="/home/resigination/resigination-list">Resigination</a></li>
                         </ul>
                     </li>
 
@@ -101,15 +102,16 @@
                         <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
                         <ul style="display: none;">
                             <li><a  routerLink="/home/employee/list-employee">All Employees</a></li>
-                            <li><a routerLink="leaves.html">Leaves <span class="badge badge-pill bg-primary float-right">1</span></a></li>
-                            <li><a routerLink="attendance.html">Attendance</a></li>
+                            <li><a routerLink="/home/attendance/list-attendance">Attendance</a></li>
+                            <li><a routerLink="/home/allocate-leave/list-leave">Leaves</a></li>
                             <li><a routerLink="/home/department/list-department">Departments</a></li>
                             <li><a routerLink="/home/desigination/list-desigination">Designations</a></li>
-                            <li><a routerLink="timesheet.html">Timesheet</a></li>
-                            <!-- <li><a href="overtime.html">Overtime</a></li> -->
+                            <li><a routerLink="/home/timesheet/list-timesheet">Timesheet</a></li>
+                            <li><a routerLink="/home/resigination/resigination-list">Resigination</a></li>
                         </ul>
                     </li>
 
+                  
                     <li>
                         <a routerLink="/home/employee/list-employee"><i class="la la-users"></i>
                             <span>Holidays</span></a>
@@ -130,10 +132,16 @@
                     <li class="menu-title">
                         <span>Admin</span>
                     </li>
+                   
                     <li>
                         <a routerLink="/home/employee/list-employee"><i class="la la-users"></i>
                             <span>Employee</span></a>
                     </li>
+                    <li>
+                        <a routerLink="/home/attendance/list-attendance"><i class="la la-users"></i>
+                            <span>Attendance</span></a>
+                    </li>
+
                     <li>
                         <a routerLink="/home/allocate-team/list-team"><i class="la la-users"></i>
                             <span>Team Allocation</span></a>
@@ -142,10 +150,22 @@
                         <a routerLink="/home/allocate-sprint/list-sprint"><i class="la la-users"></i>
                             <span>Generate Sprints</span></a>
                     </li>
+                    <li>
+                        <a routerLink="/home/allocate-leave/list-leave"><i class="la la-users"></i>
+                            <span>Leaves</span></a>
+                    </li>
                     <!-- <li>
                         <a routerLink="/home/allocate-task/list-task"><i class="la la-users"></i>
                             <span>Task Allocation</span></a>
                     </li> -->
+                    <li>
+                        <a routerLink="/home/timesheet/list-timesheet"><i class="la la-user-secret"></i>
+                            <span>Timesheet</span></a>
+                    </li>
+                    <li>
+                        <a routerLink="/home/resigination/resigination-list"><i class="la la-users"></i>
+                            <span>Resigination</span></a>
+                    </li>
 
                     <li class="submenu">
                         <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Task Allocation</span> <span class="menu-arrow"></span></a>
@@ -156,6 +176,7 @@
                         </ul>
                     </li>
 
+
                     <!-- Employeee -->
                     <!-- Employeee -->
                     <!-- Employeee -->
@@ -163,9 +184,31 @@
                         <span>Employees</span>
                     </li>
                     <li>
+                        <a routerLink="/home/allocate-leave/list-leave"><i class="la la-users"></i>
+                            <span>Leaves</span></a>
+                    </li>
+
+                    <li>
                         <a routerLink="/home/timesheet/list-timesheet"><i class="la la-user-secret"></i>
                             <span>Timesheet</span></a>
                     </li>
+                    <li>
+                        <a routerLink="/home/attendance/list-attendance"><i class="la la-users"></i>
+                            <span>Attendance</span></a>
+                    </li>
+                    <li>
+                        <a routerLink="/home/resigination/resigination-list"><i class="la la-users"></i>
+                            <span>Resigination</span></a>
+                    </li>
+                    <li class="submenu">
+                        <a href="#" class="noti-dot"><i class="la la-user"></i> <span>Allocated Task</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <li><a  routerLink="/home/allocate-task/list-task">Project 1</a></li>
+                            <li><a routerLink="/home/allocate-task/list-task">Project 2 <span class="badge badge-pill bg-primary float-right">1</span></a></li>
+                            <li><a routerLink="/home/allocate-task/list-task">Project 3</a></li>
+                        </ul>
+                    </li>
+
 
                     <li class="menu-title">
                         <span>Settings</span>

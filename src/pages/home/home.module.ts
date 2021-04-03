@@ -77,7 +77,21 @@ import { MultiSelectModule } from 'primeng/multiselect';
             loadChildren: () => import('src/pages/team/team.module').
               then((({ TeamModule }) => TeamModule))
           },
-          
+          {
+            path: 'resigination',
+            loadChildren: () => import('src/pages/resigination/resigination.module').
+              then((({ ResiginationModule }) => ResiginationModule))
+          },
+          {
+            path: 'attendance',
+            loadChildren: () => import('src/pages/attendance/attendance.module').
+              then((({ AttendanceModule }) => AttendanceModule))
+          },
+          {
+            path: 'allocate-leave',
+            loadChildren: () => import('src/pages/leave/leave.module').
+              then((({ LeaveModule }) => LeaveModule))
+          },
           {
             path: 'allocate-sprint',
             loadChildren: () => import('src/pages/sprints/sprints.module').
