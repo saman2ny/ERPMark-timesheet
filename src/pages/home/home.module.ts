@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AuthGuard } from 'src/guards/auth-guard.service';
 import { ShowDatePipe } from 'src/pipes/show-date.pipe';
@@ -42,6 +43,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
             path: 'dashboard',
             component: DashboardComponent
           },
+          {
+            path: 'profile',
+            component: ProfileComponent
+          },
+          
           {
             path: 'admin',
             loadChildren: () => import('src/pages/admin/admin.module').
@@ -116,7 +122,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 
   ],
 
-  declarations: [DashboardComponent, LandingPageComponent]
+  declarations: [DashboardComponent, LandingPageComponent, ProfileComponent]
 })
 
 

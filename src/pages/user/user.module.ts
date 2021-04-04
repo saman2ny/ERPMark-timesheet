@@ -6,7 +6,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 import { LoginComponent } from './login/login.component';
-// import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 // import { ChangePasswordComponent } from './change-password/change-password.component';
 
 import { AuthGuard } from 'src/guards/auth-guard.service';
@@ -23,11 +23,12 @@ const routes: Routes = [
     component: LoginComponent,
     
   },
-  // {
-  //   path: 'ForgotPassword',
-  //   component: ForgotPasswordComponent,
+  {
+    path: 'ForgotPassword',
+    component: ForgotPasswordComponent,
     
-  // },
+  },
+ 
   // {
   //   path: 'two-factor-auth', 
   //   component: OtpComponent,
@@ -49,7 +50,7 @@ const routes: Routes = [
 
     ],
     entryComponents: [],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent, ForgotPasswordComponent]
   })
 
 
