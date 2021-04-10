@@ -14,18 +14,23 @@
             <!-- /Page Header -->
             
 
-            <form>
+            <form [formGroup]="CompanyForm">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Company Name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" value="Dreamguy's Technologies">
+                            <input class="form-control" type="text" id="companyName" formControlName="companyName" value="Dreamguy's Technologies">
+                            <div class="error" *ngIf="CompanyForm.controls['companyName'].hasError('required') && CompanyForm.controls['companyName'].touched">
+                                Company Name is Required</div>
+
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Contact Person</label>
-                            <input class="form-control " value="Daniel Porter" type="text">
+                            <input class="form-control " value="Daniel Porter" id="contactPerson" formControlName="contactPerson"  type="text">
+                            <div class="error" *ngIf="CompanyForm.controls['contactPerson'].hasError('required') && CompanyForm.controls['contactPerson'].touched">
+                                Contact Person is Required</div>
                         </div>
                     </div>
                 </div>
@@ -33,38 +38,52 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Address</label>
-                            <input class="form-control " value="3864 Quiet Valley Lane, Sherman Oaks, CA, 91403" type="text">
+                            <input class="form-control " id="address" formControlName="address"  value="3864 Quiet Valley Lane, Sherman Oaks, CA, 91403" type="text">
+                            <div class="error" *ngIf="CompanyForm.controls['address'].hasError('required') && CompanyForm.controls['address'].touched">
+                                Address is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>Country</label>
-                            <select class="form-control select">
+                            <select class="form-control select" id="country" formControlName="country">
                                 <option>USA</option>
                                 <option>United Kingdom</option>
                             </select>
+                            <div class="error" *ngIf="CompanyForm.controls['country'].hasError('required') && CompanyForm.controls['country'].touched">
+                                Country is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>City</label>
-                            <input class="form-control" value="Sherman Oaks" type="text">
+                            <input class="form-control" value="Sherman Oaks" type="text" id="city" formControlName="city">
+                            
+                            <div class="error" *ngIf="CompanyForm.controls['city'].hasError('required') && CompanyForm.controls['city'].touched">
+                                City is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>State/Province</label>
-                            <select class="form-control select">
+                            <select class="form-control select" id="state" formControlName="state">
                                 <option>California</option>
                                 <option>Alaska</option>
                                 <option>Alabama</option>
                             </select>
+                            <div class="error" *ngIf="CompanyForm.controls['state'].hasError('required') && CompanyForm.controls['state'].touched">
+                                State is Required</div>
+
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>Postal Code</label>
-                            <input class="form-control" value="91403" type="text">
+                            <input class="form-control" value="91403" type="text" id="postalCode" formControlName="postalCode">
+
+                            
+                            <div class="error" *ngIf="CompanyForm.controls['postalCode'].hasError('required') && CompanyForm.controls['postalCode'].touched">
+                                Postal code is Required</div>
                         </div>
                     </div>
                 </div>
@@ -72,13 +91,17 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control" value="danielporter@example.com" type="email">
+                            <input class="form-control" value="danielporter@example.com" type="email" id="email" formControlName="email">
+                            <div class="error" *ngIf="CompanyForm.controls['email'].hasError('required') && CompanyForm.controls['email'].touched">
+                                Email is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input class="form-control" value="818-978-7102" type="text">
+                            <input class="form-control" value="818-978-7102" type="text" id="phoneNumber" formControlName="phoneNumber">
+                            <div class="error" *ngIf="CompanyForm.controls['phoneNumber'].hasError('required') && CompanyForm.controls['phoneNumber'].touched">
+                                Phone Number is Required</div>
                         </div>
                     </div>
                 </div>
@@ -86,13 +109,17 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Mobile Number</label>
-                            <input class="form-control" value="818-635-5579" type="text">
+                            <input class="form-control" value="818-635-5579" type="text" id="mobileNumber" formControlName="mobileNumber">
+                            <div class="error" *ngIf="CompanyForm.controls['mobileNumber'].hasError('required') && CompanyForm.controls['mobileNumber'].touched">
+                                Mobile Number is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Number of users</label>
-                            <input class="form-control" value="10" type="text">
+                            <input class="form-control" value="10" type="text" id="numberOfUsers" formControlName="numberOfUsers">
+                            <div class="error" *ngIf="CompanyForm.controls['numberOfUsers'].hasError('required') && CompanyForm.controls['numberOfUsers'].touched">
+                                Number of users is Required</div>
                         </div>
                     </div>
                 </div>
@@ -100,13 +127,17 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Password</label>
-                            <input class="form-control" value="Test@123" type="password">
+                            <input class="form-control" value="Test@123" type="password" id="password" formControlName="password">
+                            <div class="error" *ngIf="CompanyForm.controls['password'].hasError('required') && CompanyForm.controls['password'].touched">
+                                Password is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input class="form-control" value="Test@123" type="password">
+                            <input class="form-control" value="Test@123" type="password" id="confirmPassword" formControlName="confirmPassword">
+                            <div class="error" *ngIf="CompanyForm.controls['confirmPassword'].hasError('required') && CompanyForm.controls['confirmPassword'].touched">
+                               Confirm Password is Required</div>
                         </div>
                     </div>
                 </div>
@@ -115,12 +146,12 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Website Url</label>
-                            <input class="form-control" value="https://www.example.com" type="text">
+                            <input class="form-control" value="https://www.example.com" type="text" id="website" formControlName="website">
                         </div>
                     </div>
                 </div>
                 <div class="submit-section">
-                    <button class="btn btn-primary submit-btn">Save</button>
+                    <button class="btn btn-primary submit-btn"  (click)="Save()">Save</button>
                 </div>
             </form>
         </div>
