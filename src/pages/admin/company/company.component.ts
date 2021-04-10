@@ -20,6 +20,7 @@ declare function datatblesandIts(): any;
 })
 export class CompanyComponent implements OnInit {
   CompanyForm: FormGroup;
+  companyObj:any = {}
   constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location
 	) { }
