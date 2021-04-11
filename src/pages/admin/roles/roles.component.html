@@ -16,129 +16,22 @@
 	
 <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3">
-        <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#add_role"><i class="fa fa-plus"></i> Add Roles</a>
+        <a href="#" class="btn btn-primary btn-block" (click)="openModal()" data-toggle="modal" ><i class="fa fa-plus"></i> Add Roles</a>
         <div class="roles-menu">
             <ul>
                 <li class="active">
                     <a href="javascript:void(0);">Administrator
                         <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
+                            <span class="action-circle large" data-toggle="modal" (click)="openModal()">
                                 <i class="material-icons">edit</i>
                             </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
+                            <span class="action-circle large delete-btn" data-toggle="modal" (click)="deleteModal()">
                                 <i class="material-icons">delete</i>
                             </span>
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);">CEO
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">Manager
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">Team Leader
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">Accountant
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">Web Developer
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">Web Designer
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">HR
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">UI/UX Developer
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">SEO Analyst
-                        <span class="role-action">
-                            <span class="action-circle large" data-toggle="modal" data-target="#edit_role">
-                                <i class="material-icons">edit</i>
-                            </span>
-                            <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
-                                <i class="material-icons">delete</i>
-                            </span>
-                        </span>
-                    </a>
-                </li>
+            
             </ul>
         </div>
     </div>
@@ -296,7 +189,7 @@
 </div>
 <!-- /Page Content -->
 
-<!-- Add Role Modal -->
+<!-- Role Modal -->
 <div id="add_role" class="modal custom-modal fade" role="dialog">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -307,46 +200,23 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form [formGroup]="RoleForm">
                 <div class="form-group">
                     <label>Role Name <span class="text-danger">*</span></label>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" [(ngModel)]="roleObj.addRole" formControlName="addRole">
+                    <div class="error" *ngIf="RoleForm.controls['addRole'].hasError('required') && RoleForm.controls['addRole'].touched">
+                        Role is Required</div>
                 </div>
                 <div class="submit-section">
-                    <button class="btn btn-primary submit-btn">Submit</button>
+                    <button class="btn btn-primary submit-btn" (click)="Save()">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 </div>
-<!-- /Add Role Modal -->
+<!-- / Role Modal -->
 
-<!-- Edit Role Modal -->
-<div id="edit_role" class="modal custom-modal fade" role="dialog">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content modal-md">
-        <div class="modal-header">
-            <h5 class="modal-title">Edit Role</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label>Role Name <span class="text-danger">*</span></label>
-                    <input class="form-control" value="Team Leader" type="text">
-                </div>
-                <div class="submit-section">
-                    <button class="btn btn-primary submit-btn">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
-<!-- /Edit Role Modal -->
 
 <!-- Delete Role Modal -->
 <div class="modal custom-modal fade" id="delete_role" role="dialog">

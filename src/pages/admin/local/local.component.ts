@@ -30,22 +30,25 @@ export class LocalComponent implements OnInit {
     datatblesandIts();
 
     this.LocalForm = this.formBuilder.group({
-			companyName: ['', Validators.compose([Validators.required])],
-			contactPerson: ['', Validators.required],
-			address: ['', Validators.required],
-			country: ['', Validators.required],
-			city: ['', Validators.required],
-			state: ['', Validators.required],
-			postalCode: ['', Validators.required],
-			email: ['', Validators.required],
-			phoneNumber: ['', Validators.required],
-			mobileNumber: ['', Validators.required],
-			numberOfUsers: ['', Validators.required],
-			password: ['', Validators.required],
-			confirmPassword: ['', Validators.required],
-			website: [''],
+			defaultCountry: ['', Validators.compose([Validators.required])],
+			dateFormat: ['', Validators.required],
+			timezone: ['', Validators.required],
+			defaultLanguage: ['', Validators.required],
+			currencyCode: ['', Validators.required],
+			currencySymbol: ['', Validators.required]
 		});
 
+  }
+
+
+    Save(){
+    if (this.LocalForm.invalid) {
+			this.LocalForm.markAllAsTouched();
+			return;
+		} else {
+      this.common.hideLoading()
+
+    }
   }
 
 }

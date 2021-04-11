@@ -12,21 +12,24 @@
             </div>
             <!-- /Page Header -->
             
-            <form>
+            <form [formGroup]="LocalForm">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Default Country</label>
-                            <select class="select">
+                            <select class="select" [(ngModel)]="localObj.defaultCountry" formControlName="defaultCountry">
                                 <option selected="selected">USA</option>
                                 <option>United Kingdom</option>
                             </select>
+                            
+                            <div class="error" *ngIf="LocalForm.controls['defaultCountry'].hasError('required') && LocalForm.controls['defaultCountry'].touched">
+                                Country is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Date Format</label>
-                            <select class="select">
+                            <select class="select" [(ngModel)]="localObj.dateFormat" formControlName="dateFormat">
                                 <option value="d/m/Y">15/05/2016</option>
                                 <option value="d.m.Y">15.05.2016</option>
                                 <option value="d-m-Y">15-05-2016</option>
@@ -36,45 +39,57 @@
                                 <option value="M d Y">May 15 2016</option>
                                 <option selected="selected" value="d M Y">15 May 2016</option>
                             </select>
+
+                            <div class="error" *ngIf="LocalForm.controls['dateFormat'].hasError('required') && LocalForm.controls['dateFormat'].touched">
+                                Date Format is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Timezone</label>
-                            <select class="select">
+                            <select class="select" [(ngModel)]="localObj.timezone" formControlName="timezone">
                                 <option>(UTC +5:30) Antarctica/Palmer</option>
                             </select>
+                            <div class="error" *ngIf="LocalForm.controls['timezone'].hasError('required') && LocalForm.controls['timezone'].touched">
+                                Time Zone is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Default Language</label>
-                            <select class="select">
+                            <select class="select" [(ngModel)]="localObj.defaultLanguage" formControlName="defaultLanguage">
                                 <option selected="selected">English</option>
                                 <option>French</option>
                             </select>
+                            
+                            <div class="error" *ngIf="LocalForm.controls['defaultLanguage'].hasError('required') && LocalForm.controls['defaultLanguage'].touched">
+                                Deafult Language is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Currency Code</label>
-                            <select class="select">
+                            <select class="select" [(ngModel)]="localObj.currencyCode" formControlName="currencyCode">
                                 <option selected="selected">USD</option>
                                 <option>Pound</option>
                                 <option>EURO</option>
                                 <option>Ringgit</option>
                             </select>
+                            <div class="error" *ngIf="LocalForm.controls['currencyCode'].hasError('required') && LocalForm.controls['currencyCode'].touched">
+                                Currency Code is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Currency Symbol</label>
-                            <input class="form-control" readonly value="$" type="text">
+                            <input class="form-control" readonly value="$" type="text" [(ngModel)]="localObj.currencySymbol" formControlName="currencySymbol">
+                            <div class="error" *ngIf="LocalForm.controls['currencySymbol'].hasError('required') && LocalForm.controls['currencySymbol'].touched">
+                                Currency symbol is Required</div>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn">Save</button>
+                            <button class="btn btn-primary submit-btn" (click)="Save()">Save</button>
                         </div>
                     </div>
                 </div>
