@@ -18,6 +18,53 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label>First Name <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" id="firstName" formControlName="firstName" [(ngModel)]="companyObj.firstName" value="Dreamguy's Technologies">
+                            <div class="error" *ngIf="CompanyForm.controls['firstName'].hasError('required') && CompanyForm.controls['firstName'].touched">
+                                First Name is Required</div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input class="form-control " value="Daniel Porter" id="lastPerson" [(ngModel)]="companyObj.lastPerson" formControlName="lastPerson"  type="text">
+                            <div class="error" *ngIf="CompanyForm.controls['lastPerson'].hasError('required') && CompanyForm.controls['lastPerson'].touched">
+                                Last Name is Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Birth Date <span class="text-danger">*</span></label>
+                            <div class="cal-icon">
+                                <input class="form-control datetimepicker" type="text" [(ngModel)]="companyObj.birthDate" formControlName="birthDate" value="05/06/1985">
+                                <div class="error" *ngIf="CompanyForm.controls['birthDate'].hasError('required') && CompanyForm.controls['birthDate'].touched">
+                                    Birth date is Required</div>
+                            </div>                          
+                              
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Gender</label>
+                                    <select class="select form-control" [(ngModel)]="companyObj.gender" formControlName="gender">
+                                        <option value="male selected">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <div class="error" *ngIf="CompanyForm.controls['gender'].hasError('required') && CompanyForm.controls['gender'].touched">
+                                        Gender is Required</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label>Company Name <span class="text-danger">*</span></label>
                             <input class="form-control" type="text" id="companyName" formControlName="companyName" [(ngModel)]="companyObj.companyName" value="Dreamguy's Technologies">
                             <div class="error" *ngIf="CompanyForm.controls['companyName'].hasError('required') && CompanyForm.controls['companyName'].touched">
@@ -151,9 +198,22 @@
                         <div class="form-group">
                             <label>Website Url</label>
                             <input class="form-control" value="https://www.example.com" type="text" [(ngModel)]="companyObj.website" id="website" formControlName="website">
+                            <div class="error" *ngIf="CompanyForm.controls['website'].hasError('required') && CompanyForm.controls['website'].touched">
+                                Website is Required</div>
                         </div>
                     </div>
                 </div>
+
+
+                <div class="form-group row">
+                    <label class="col-form-label col-md-12">File Input</label>
+                    <div class="col-md-12">
+                        <input class="form-control" type="file" [(ngModel)]="companyObj.perImg" id="perImg" formControlName="perImg">
+                          <div class="error" *ngIf="CompanyForm.controls['perImg'].hasError('required') && CompanyForm.controls['perImg'].touched">
+                                Image is Required</div>
+                    </div>
+                </div>
+
                 <div class="submit-section">
                     <button class="btn btn-primary submit-btn"  (click)="Save()">Save</button>
                 </div>

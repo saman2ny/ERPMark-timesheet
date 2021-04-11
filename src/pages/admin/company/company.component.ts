@@ -30,6 +30,12 @@ export class CompanyComponent implements OnInit {
 
         
     this.CompanyForm = this.formBuilder.group({
+			firstName: ['', Validators.compose([Validators.required])],
+			lastPerson: ['', Validators.compose([Validators.required])],
+			birthDate: ['', Validators.compose([Validators.required])],
+			gender: ['', Validators.compose([Validators.required])],
+
+
 			companyName: ['', Validators.compose([Validators.required])],
 			contactPerson: ['', Validators.required],
 			address: ['', Validators.required],
@@ -43,7 +49,8 @@ export class CompanyComponent implements OnInit {
 			numberOfUsers: ['', Validators.required],
 			password: ['', Validators.required],
 			confirmPassword: ['', Validators.required],
-			website: [''],
+			website: ['', Validators.required],
+			perImg: ['', Validators.required],
 		});
   }
 
