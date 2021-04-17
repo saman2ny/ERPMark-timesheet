@@ -7,6 +7,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CompanyComponent } from './company/company.component';
 import { LocalComponent } from './local/local.component';
 import { RolesComponent } from './roles/roles.component';
+import { ThemeComponent } from './theme/theme.component';
 
 
 
@@ -29,11 +30,17 @@ const routes: Routes = [
 
     
   },
+   {
+    path: 'theme',
+    component: ThemeComponent,
+
+    
+  },
 
 ];
 
 @NgModule({
-  declarations: [CompanyComponent, LocalComponent, RolesComponent],
+  declarations: [CompanyComponent, LocalComponent, RolesComponent, ThemeComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

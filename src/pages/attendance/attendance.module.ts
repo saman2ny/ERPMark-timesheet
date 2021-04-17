@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { AttendanceListComponent } from './attendance-list/attendance-list.component';
+import { HolidayListComponent } from './holiday-list/holiday-list.component';
 
 
 const routes: Routes = [
@@ -14,11 +15,17 @@ const routes: Routes = [
 
     
   },
+  {
+    path: 'list-holidays',
+    component: HolidayListComponent,
+
+    
+  },
 
 ];
 
 @NgModule({
-  declarations: [AttendanceListComponent],
+  declarations: [AttendanceListComponent, HolidayListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
