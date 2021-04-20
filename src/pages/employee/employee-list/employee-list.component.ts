@@ -13,6 +13,7 @@ declare var $: any;
 declare function datatblesandIts(): any;
 
 
+
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
