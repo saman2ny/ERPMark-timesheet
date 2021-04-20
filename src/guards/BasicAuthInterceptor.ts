@@ -21,8 +21,6 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 
        
 
-        
-
         return next.handle(request).pipe(
             // We use the map operator to change the data from the response
             map(resp => {
