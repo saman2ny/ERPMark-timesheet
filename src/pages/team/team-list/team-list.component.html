@@ -609,7 +609,15 @@
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label>Add Team</label>
-												<input class="form-control" type="text">
+												<!-- <input type="text" pInputText class="p-mr-2 p-d-inline" /> -->
+
+											
+												<p-multiSelect optionLabel="langDesc" [options]="listTeamId"
+												[(ngModel)]="teamObj.language"  name="listTeamId" [filter]="true">
+				
+											</p-multiSelect> 
+
+												<!-- <input class="form-control" type="text"> -->
 											</div>
 										</div>
 										<div class="col-sm-6">

@@ -6,6 +6,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { TeamListComponent } from './team-list/team-list.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
+import { DropdownModule } from 'primeng/dropdown';
+
+import {MultiSelectModule} from 'primeng/multiselect';
 
 
 const routes: Routes = [
@@ -30,6 +33,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
+    DropdownModule,
+    MultiSelectModule,
     InfiniteScrollModule
   ]
 })

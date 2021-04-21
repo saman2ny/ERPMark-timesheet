@@ -14,7 +14,7 @@ export class ApiService {
 
   constructor(private http: HttpClient, private common: CommonService, public constantsService: ConstantsService) { }
   // logesh
-  baseUrl = 'http://192.168.43.184/thinkwise/';
+  // baseUrl = 'http://192.168.43.184/thinkwise/';
 
   // mukesh
   // baseUrl = 'http://172.16.8.222:8084/EA/';
@@ -44,7 +44,7 @@ export class ApiService {
   // baseUrl = 'http://59.144.137.134/EA/'; 
 
   //Rajesh
-  // baseUrl = 'http://172.16.8.196:8084/EA/';  
+  baseUrl = 'http://172.16.8.146:8080/EA/';  
 
   //oracle live
   //  baseUrl = 'http://enterprisealert.ducont.com:8080/EA/';
