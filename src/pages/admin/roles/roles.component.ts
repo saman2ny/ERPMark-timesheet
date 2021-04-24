@@ -42,4 +42,18 @@ export class RolesComponent implements OnInit {
 
   }
 
-}
+  Save(){
+    if (this.RoleForm.invalid) {
+			this.RoleForm.markAllAsTouched();
+			return;
+		} else {
+      this.common.hideLoading()
+
+    }
+  }
+
+  
+  }
+
+
+

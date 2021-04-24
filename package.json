@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
+    "test:coverage": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -40,12 +41,12 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.0-rc.7",
-    "@angular/cli": "^11.1.4",
+    "@angular/cli": "^11.2.10",
     "@angular/compiler-cli": "~11.1.2",
     "@angular/language-service": "~11.1.2",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
+    "@types/node": "^14.14.41",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
