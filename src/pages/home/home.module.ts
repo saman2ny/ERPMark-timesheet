@@ -119,7 +119,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
     SharedModule,
     NgxIntlTelInputModule
 
-
   ],
 
   declarations: [DashboardComponent, LandingPageComponent, ProfileComponent]
