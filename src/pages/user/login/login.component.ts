@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
 
 	}
 
+
 	loginSubmit() {
 
 		if (this.loginForm.invalid) {
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
 		} else {
 			this.common.showLoading()
 			this.apiService.post(this.constantsService.login, this.user).subscribe((succ: any) => {
-				
+			
 				this.common.hideLoading()
 				if (succ.code == 200) {
 						this.common.showSuccessMessage(succ.message)
@@ -71,9 +72,7 @@ export class LoginComponent implements OnInit {
 
 
 			}, err => {
-				this.common.hideLoading()
-console.log(err.message, "err.message")
-			
+				this.common.hideLoading()			
 				this.common.showErrorMessage(err.message)
 				// this.location.back();
 

@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
 
   token="pushToken"
-  login = "Bdm/Index/";
+  login = "Branch/index";
+  // login = "Bdm/hai/";
 
        // List Projects
     getProjects = "Bdm/newclient/"
