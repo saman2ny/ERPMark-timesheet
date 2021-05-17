@@ -5,10 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class ConstantsService {
 
-  token="pushToken"
-  login = "Branch/index";
-  // login = "Bdm/hai/";
+    token="pushToken"
+    login = "Branch/index";
+    // login = "Bdm/hai/";
 
+    leaveList  = "Branch/leavestatus"
        // List Projects
     getProjects = "Bdm/newclient/"
        // List task
