@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
 				if (succ.code == 200) {
 					this.common.hideLoading()
 					this.common.showSuccessMessage(succ.message)
-					this.common.setUser(succ.data)
+					this.common.setUser(succ)
 					this.router.navigateByUrl('/home/dashboard');
 				}
 
