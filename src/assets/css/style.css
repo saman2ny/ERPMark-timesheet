@@ -8204,3 +8204,21 @@ ul.comment-list li ul.children {
 .error{
 color:red !important;
 }
+
+
+
+
+
+
+
+
+#loading {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(../img/Preloader_8.gif) center no-repeat #fff;
+    opacity: .9;
+}

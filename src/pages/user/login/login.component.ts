@@ -35,14 +35,14 @@ export class LoginComponent implements OnInit {
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location
 	) {
-		
+
 	}
 
-	goLogin(){
+	goLogin() {
 		this.router.navigateByUrl('/home/dashboard');
 
 	}
-	goForgot(){
+	goForgot() {
 		this.router.navigateByUrl('/ForgotPassword');
 
 	}
@@ -57,14 +57,16 @@ export class LoginComponent implements OnInit {
 			this.common.showLoading()
 			this.apiService.post(this.constantsService.login, this.user).subscribe((succ: any) => {
 				console.log(succ.data, "datataa")
-				this.common.hideLoading()
 				if (succ.code == 200) {
-						this.common.showSuccessMessage(succ.message)
-						this.router.navigateByUrl('/home/dashboard');
-					}
+					this.common.hideLoading()
+					this.common.showSuccessMessage(succ.message)
+					this.common.setUser(succ.data)
+					this.router.navigateByUrl('/home/dashboard');
+				}
 
 
 				else {
+					this.common.hideLoading()
 					this.common.showErrorMessage(succ.message)
 					this.router.navigateByUrl('/');
 
@@ -72,7 +74,7 @@ export class LoginComponent implements OnInit {
 
 
 			}, err => {
-				this.common.hideLoading()			
+				this.common.hideLoading()
 				this.common.showErrorMessage(err.message)
 				// this.location.back();
 

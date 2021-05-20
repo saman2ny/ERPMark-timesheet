@@ -35,13 +35,9 @@ export class LeaveListComponent implements OnInit {
   loadList(){
     this.apiService.post(this.constantsService.leaveList, {}).subscribe((succ: any) => {
 			
-      this.common.hideLoading()
-      this.loadList = succ.data       
-
-
-     
-
-
+      this.common.hideLoading();
+      this.loadList = succ.data
+ 
     }, err => {
       this.common.hideLoading()			
       this.common.showErrorMessage(err.message)

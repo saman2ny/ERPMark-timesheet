@@ -19,6 +19,19 @@ export class BasicAuthInterceptor implements HttpInterceptor {
         
         let url = request.url;
 
+        if (url.endsWith(this.constantsService.login)) {
+            let opEmailId = request.body.opEmailId;
+            let opPassword = request.body.opPassword;
+
+            request.body.opEmailId = opEmailId
+            request.body.opPassword = opPassword 
+
+            this.clean(request.body)
+        }else{
+            let user = this.common.getUser()
+            request.body.firstname = user[0].firstname
+            request.body.select = user[0].select
+        }
        
 
         return next.handle(request).pipe(

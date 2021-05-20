@@ -110,7 +110,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
           }
 
         ],
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       }
     ]),
     FormsModule,

@@ -18,6 +18,7 @@ declare function myMethod(): any;
 export class LandingPageComponent implements OnInit {
  
   user: any;
+  menuType: any = {};
 
   constructor(public common: CommonService, public formBuilder: FormBuilder, public apiService: ApiService, public constantsService: ConstantsService, public router: Router) {
     
@@ -27,6 +28,9 @@ export class LandingPageComponent implements OnInit {
 
 
     myMethod();
+    this.user = this.common.getUser();
+    this.menuType = this.user[0]['select'];
+    console.log(this.menuType, "this.menuType")
 
  
 }
