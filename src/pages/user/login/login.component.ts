@@ -76,7 +76,6 @@ export class LoginComponent implements OnInit {
 			}, err => {
 				this.common.hideLoading()
 				this.common.showErrorMessage(err.message)
-				// this.location.back();
 
 			})
 
