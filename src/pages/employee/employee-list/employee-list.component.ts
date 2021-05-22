@@ -26,9 +26,17 @@ export class EmployeeListComponent implements OnInit {
 		"moduleName": "employeer"
 	}
 	employeerList: any = []
+	public minDate: any = new Date();
+	public joinDate: any = new Date();
+	user: any;
+	menuType: any = {};
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location
-	) { }
+	) {
+
+		this.user = this.common.getUser();
+		this.menuType = this.user.data[0]['select'];
+	 }
 
 
 	ngOnInit(): void {
@@ -39,15 +47,32 @@ export class EmployeeListComponent implements OnInit {
 		this.EmployeerForm = this.formBuilder.group({
 			opCompanyId: ['', Validators.required],
 			opEmployeeId: ['', Validators.required],
+			opRole: ['', Validators.required],
+			opSelectBranch: ['', Validators.required],
 			opFirstName: ['', Validators.compose([Validators.required])],
 			opLastName: ['', Validators.required],
-			opUserName: ['', Validators.required],
+			opDateOfJoin: ['', Validators.required],
+			opEmpDesg: ['', Validators.required],
+			opGender: ['', Validators.required],
+			opDateOfBirth: ['', Validators.required],
+			opAddress: ['', Validators.required],
+			opPhoneId: ['', Validators.required],
 			opEmailId: ['', Validators.required],
 			opPassword: ['', Validators.required],
 			opConfirmPassword: ['', Validators.required],
-			opPhoneId: ['', Validators.required],
-			opEmpDesg: ['', Validators.required],
+			opPanNo: ['', Validators.required],
+			opAadharNo: ['', Validators.required],
+			opBankName: ['', Validators.required],
+			opIFSC: ['', Validators.required],
+			opAcctNo: ['', Validators.required],
+			opPassport: ['', Validators.required],
+			opTeamName: ['', Validators.required],
+			opTeamId: ['', Validators.required],
 			opEmpDepart: ['', Validators.required],
+			opEmpDest: ['', Validators.required]
+
+
+			// opUserName: ['', Validators.required],
 		});
 
 	}
