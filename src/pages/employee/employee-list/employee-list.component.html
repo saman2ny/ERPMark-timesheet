@@ -97,6 +97,25 @@
             <div class="modal-body">
                 <form [formGroup]="EmployeerForm">
                     <div class="row">
+                     
+                        <div class="col-md-6">  
+                            <div class="form-group">
+                                <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
+                                <input class="form-control floating" type="text" [(ngModel)]="employeer.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
+                                <div class="error" *ngIf="EmployeerForm.controls['opCompanyId'].hasError('required') && EmployeerForm.controls['opCompanyId'].touched">
+                                    Company ID is Required</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">  
+                            <div class="form-group">
+                                <label class="col-form-label">Employeer ID <span class="text-danger">*</span></label>
+                                <input class="form-control floating" type="text" [(ngModel)]="employeer.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
+                                <div class="error" *ngIf="EmployeerForm.controls['opEmployeeId'].hasError('required') && EmployeerForm.controls['opEmployeeId'].touched">
+                                    Employeer ID is Required</div>
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">First Name <span class="text-danger">*</span></label>
@@ -146,14 +165,7 @@
                                    Confirm Password is Required</div>
                             </div>
                         </div>
-                        <div class="col-md-6">  
-                            <div class="form-group">
-                                <label class="col-form-label">Employeer ID <span class="text-danger">*</span></label>
-                                <input class="form-control floating" type="text" [(ngModel)]="employeer.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
-                                <div class="error" *ngIf="EmployeerForm.controls['opEmployeeId'].hasError('required') && EmployeerForm.controls['opEmployeeId'].touched">
-                                    Employeer ID is Required</div>
-                            </div>
-                        </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Phone </label>
