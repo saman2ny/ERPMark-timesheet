@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BankService {
-allBanks = [
+allBanks = 
   {
     "AACX": "Akhand Anand Co.op Bank",
     "ABBL": "AB Bank",
@@ -409,7 +409,6 @@ allBanks = [
     "HANX": "Hanumangarh Kendriya Sahakari Bank",
     "HARC": "Haryana State Co-operative Apex Bank",
     "HCBL": "HASTI Co-operative Bank",
-    "HCBL": "Hindusthan Co-operative Bank",
     "HCBX": "Hasti Co-operative Bank",
     "HCCX": "Hazaribag Central Co-operative Bank",
     "HCLX": "HCBL Co-operative Bank",
@@ -1464,5 +1463,20 @@ allBanks = [
     "ZSLX": "Zila Sahkari Bank Lakhimpur Kheri",
     "ZSMX": "Zila Sahkari Bank Meerut"
   }
-]
+
+
+
+allBanksCode= []
+  constructor() { 
+    for(let bankCode in this.allBanks){
+      var obj = {"keys":this.allBanks[bankCode], "opBankName":this.allBanks[bankCode]}
+      this.allBanksCode.push(obj);
+  }
+  }
+
+  getcodeBank(){
+    console.log(this.allBanksCode)
+    return this.allBanksCode;
+  }
+
 }

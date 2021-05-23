@@ -8,9 +8,9 @@ import { ApiService } from 'src/service/api.service';
 import { CommonService } from 'src/service/common.service';
 
 import { ConstantsService } from 'src/service/constants.service';
-import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 import { CountryService } from 'src/service/country.service';
-import { CountryService } from 'src/service/bank.service';
+import { BankService } from 'src/service/bank.service';
 
 // import * as $ from 'jquery'
 declare var $: any;
@@ -30,25 +30,32 @@ export class EmployeeListComponent implements OnInit {
 		"moduleName": "employeer"
 	}
 	employeerList: any = []
+	allBanks: any =[]
 	public minDate: any = new Date();
 	public joinDate: any = new Date();
 	user: any;
 	menuType: any = {};
 
-	TooltipLabel = TooltipLabel;
 
 	allCounties: ((string | number | string[])[] | (string | number | number[])[])[];
 	CountryISO: any = [];
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
-		public constantsService: ConstantsService, private location: Location, public countryService: CountryService
+		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService
 	) {
 
 		this.user = this.common.getUser();
 		this.menuType = this.user.data[0]['select'];
 		this.allCounties = this.countryService.allCountries;
 		this.CountryISO = this.countryService.getcountryCode();
-		console.log(this.CountryISO)
+		this.allBanks = this.BankService.getcodeBank();
+		this.employeer.opBankName = this.allBanks[0];
+
+
+		// console.log(this.allBanks)
+
+
+
 	 }
 
 
@@ -93,7 +100,7 @@ export class EmployeeListComponent implements OnInit {
 	}
 
 	openModal(){
-		$("#add_client").modal('show');
+		// $("#add_client").modal('show');
 		$('#add_client').modal({
 			backdrop: 'static',
 			keyboard: false

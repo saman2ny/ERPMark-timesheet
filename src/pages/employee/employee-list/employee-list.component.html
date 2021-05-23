@@ -223,9 +223,9 @@
                             <div class="form-group">
                                 <label class="col-form-label">Phone </label>
                                 <ngx-intl-tel-input [cssClass]="'form-control'" [enablePlaceholder]="true" [searchCountryFlag]="true"
-                      [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode"
+                      [maxLength]="15"  [separateDialCode]="separateDialCode"
                         [(ngModel)]="employeer.opPhoneId" 
-                      formControlName="opPhoneId" [onlyCountries]="CountryISO"    name="phone">
+                      formControlName="opPhoneId" [onlyCountries]="CountryISO"  name="phone">
                     </ngx-intl-tel-input>
                                 <!-- <input class="form-control" type="text" [(ngModel)]="employeer.opPhoneId" formControlName="opPhoneId" id="opPhoneId"> -->
                                 <div class="error" *ngIf="EmployeerForm.controls['opPhoneId'].hasError('required') && EmployeerForm.controls['opPhoneId'].touched">
@@ -285,7 +285,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Bank name </label>
-                                <input class="form-control" type="text" [(ngModel)]="employeer.opBankName" formControlName="opBankName" id="opBankName">
+                                <!-- <select class="form-control" [(ngModel)]="employeer.opBankName" formControlName="opBankName" id="opBankName">
+                                    <option value="select">Select</option>
+                                    <option *ngFor="let banks of allBanks" value="{{banks.keys}}">{{banks.keyName}}</option>
+                                </select> -->
+                                <p-dropdown optionLabel="opBankName"  optionValue="keys" [options]="allBanks" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opBankName" formControlName="opBankName" [filter]="true"></p-dropdown>
+
                                 <div class="error" *ngIf="EmployeerForm.controls['opBankName'].hasError('required') && EmployeerForm.controls['opBankName'].touched">
                                     Bank Name is Required</div>
                             </div>
