@@ -4,12 +4,12 @@
             <div class="col">
                 <h3 class="page-title">Employee</h3>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Dashboard</a></li>
                     <li class="breadcrumb-item active">Employee</li>
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_client"><i class="fa fa-plus"></i> Add Employee</a>
+                <a href="#" class="btn add-btn" data-toggle="modal" (click)="openModal()" ><i class="fa fa-plus"></i> Add Employee</a>
                 
             </div>
         </div>
@@ -199,7 +199,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label">Date of join <span class="text-danger">*</span></label>
+                                <label class="col-form-label">Date of birth <span class="text-danger">*</span></label>
                                 <input [owlDateTime]="dt2" [min]="joinDate" class="form-control" formControlName="opDateOfBirth"
                                  [(ngModel)]="employeer.opDateOfBirth" [owlDateTimeTrigger]="dt2" placeholder="Date Time">
                                                      <owl-date-time #dt2></owl-date-time>
@@ -222,9 +222,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Phone </label>
-                                <input class="form-control" type="text" [(ngModel)]="employeer.opPhoneId" formControlName="opPhoneId" id="opPhoneId">
+                                <ngx-intl-tel-input [cssClass]="'form-control'" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                      [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode"
+                        [(ngModel)]="employeer.opPhoneId" 
+                      formControlName="opPhoneId" [onlyCountries]="CountryISO"    name="phone">
+                    </ngx-intl-tel-input>
+                                <!-- <input class="form-control" type="text" [(ngModel)]="employeer.opPhoneId" formControlName="opPhoneId" id="opPhoneId"> -->
                                 <div class="error" *ngIf="EmployeerForm.controls['opPhoneId'].hasError('required') && EmployeerForm.controls['opPhoneId'].touched">
                                     Phone is Required</div>
+                                    <div class="error error-position" *ngIf="EmployeerForm.controls['opPhoneId'].hasError('validatePhoneNumber') && EmployeerForm.controls['opPhoneId'].touched">
+                                        Ouch! Invalid number  </div>
                             </div>
                         </div>
                         
@@ -247,9 +254,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Confirm Password</label>
-                                <input class="form-control" type="password" [(ngModel)]="employeer.opConfirmPassword" formControlName="opConfirmPassword" id="opConfirmPassword">
+                                <input class="form-control" type="password" [(ngModel)]="employeer.opConfirmPassword" pattern="{{ employeer.opPassword }}" formControlName="opConfirmPassword" id="opConfirmPassword">
                                 <div class="error" *ngIf="EmployeerForm.controls['opConfirmPassword'].hasError('required') && EmployeerForm.controls['opConfirmPassword'].touched">
                                    Confirm Password is Required</div>
+                                   <div class="error" *ngIf="EmployeerForm.get('opConfirmPassword').hasError('pattern')">
+                                    Password dosen't match</div>
                             </div>
                         </div>
 
@@ -285,7 +294,7 @@
                         
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label">Bank name </label>
+                                <label class="col-form-label">IFSC code </label>
                                 <input class="form-control" type="text" [(ngModel)]="employeer.opIFSC" formControlName="opIFSC" id="opIFSC">
                                 <div class="error" *ngIf="EmployeerForm.controls['opIFSC'].hasError('required') && EmployeerForm.controls['opIFSC'].touched">
                                     IFSC is Required</div>
@@ -315,7 +324,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Team name </label>
-                                <input class="form-control" type="text" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" id="opTeamName">
+                                <select class="form-control" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" id="opTeamName">
+                                    <option value="select">Select</option>
+                                    <option value="TeamName">TeamName</option>
+                                    <option value="TeamName">TeamName</option>
+                                </select>
                                 <div class="error" *ngIf="EmployeerForm.controls['opTeamName'].hasError('required') && EmployeerForm.controls['opTeamName'].touched">
                                     Team name is Required</div>
                             </div>
@@ -324,7 +337,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Team id </label>
-                                <input class="form-control" type="text" [(ngModel)]="employeer.opTeamId" formControlName="opTeamId" id="opTeamId">
+                                <input disabled class="form-control" type="text" [(ngModel)]="employeer.opTeamId" formControlName="opTeamId" id="opTeamId">
                                 <div class="error" *ngIf="EmployeerForm.controls['opTeamId'].hasError('required') && EmployeerForm.controls['opTeamId'].touched">
                                     Team id is Required</div>
                             </div>
@@ -345,19 +358,26 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Employeer Desigination</label>
-                                <select class="form-control" [(ngModel)]="employeer.opEmpDest" formControlName="opEmpDest" id="opEmpDest">
-                                    <option value="Select">Select</option>
-                                    <option value="Desigination">Desigination</option>
-                                    <option value="Desigination">Desigination</option>
-                                </select>
+                            <div class="box">
+                                    <!-- {{employeer.opEmpImg}} -->
+                            <img [src]="employeer.opEmpImg"
+                            class="img-clup"  formControlName="opEmpImgDisplay" #opEmpImgDisplay
+                            onerror="this.src='assets/img/portfolio-image14.jpg';"
+                            style="width:100% !important;" />
                             </div>
-                            <div class="error" *ngIf="EmployeerForm.controls['opEmpDest'].hasError('required') && EmployeerForm.controls['opEmpDest'].touched">
-                                Desigination is Required</div>
 
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Employeer Image</label>
+                                <input type="file" name="myfile" id="upload" [(ngModel)]="employeer.opEmpImg" formControlName="opEmpImg" id="opEmpImg" class="file"  (change)="getEmployeerImg($event)"/>
+                            <div class="error" *ngIf="EmployeerForm.controls['opEmpImg'].hasError('required') && EmployeerForm.controls['opEmpImg'].touched">
+                                Employeer Img is Required</div>
+
+                        </div>
+
+                    </div>
                     </div>
                     
                     

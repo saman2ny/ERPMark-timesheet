@@ -8,6 +8,10 @@ import { ApiService } from 'src/service/api.service';
 import { CommonService } from 'src/service/common.service';
 
 import { ConstantsService } from 'src/service/constants.service';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { CountryService } from 'src/service/country.service';
+import { CountryService } from 'src/service/bank.service';
+
 // import * as $ from 'jquery'
 declare var $: any;
 declare function datatblesandIts(): any;
@@ -30,12 +34,21 @@ export class EmployeeListComponent implements OnInit {
 	public joinDate: any = new Date();
 	user: any;
 	menuType: any = {};
+
+	TooltipLabel = TooltipLabel;
+
+	allCounties: ((string | number | string[])[] | (string | number | number[])[])[];
+	CountryISO: any = [];
+
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
-		public constantsService: ConstantsService, private location: Location
+		public constantsService: ConstantsService, private location: Location, public countryService: CountryService
 	) {
 
 		this.user = this.common.getUser();
 		this.menuType = this.user.data[0]['select'];
+		this.allCounties = this.countryService.allCountries;
+		this.CountryISO = this.countryService.getcountryCode();
+		console.log(this.CountryISO)
 	 }
 
 
@@ -50,7 +63,7 @@ export class EmployeeListComponent implements OnInit {
 			opRole: ['', Validators.required],
 			opSelectBranch: ['', Validators.required],
 			opFirstName: ['', Validators.compose([Validators.required])],
-			opLastName: ['', Validators.required],
+			opLastName: [''],
 			opDateOfJoin: ['', Validators.required],
 			opEmpDesg: ['', Validators.required],
 			opGender: ['', Validators.required],
@@ -69,7 +82,9 @@ export class EmployeeListComponent implements OnInit {
 			opTeamName: ['', Validators.required],
 			opTeamId: ['', Validators.required],
 			opEmpDepart: ['', Validators.required],
-			opEmpDest: ['', Validators.required]
+			opEmpDest: ['', Validators.required],
+			opEmpImgDisplay: [''],
+			opEmpImg: ['', Validators.required]
 
 
 			// opUserName: ['', Validators.required],
@@ -77,6 +92,37 @@ export class EmployeeListComponent implements OnInit {
 
 	}
 
+	openModal(){
+		$("#add_client").modal('show');
+		$('#add_client').modal({
+			backdrop: 'static',
+			keyboard: false
+		})
+	}
+	getEmployeerImg(event){
+		var file: File = event.target.files[0];
+		var fileFormat = file.name.substring(file.name.lastIndexOf("."), file.name.length);
+	
+		if (event.target.files.length > 0) {
+		  const file = event.target.files[0];
+		  console.log(file, "file")
+	
+		  this.common.convertBase64(file, (result) => {
+			this.employeer.attachmentFile = result;
+			this.employeer.attach = file.name;
+			this.employeer.attachmentFileName = file.name;
+	
+		  })
+	
+		  setTimeout(() => {
+			this.employeer.opEmpImg = this.employeer.attachmentFile
+		  console.log(this.employeer.attachmentFile, "this.employeer.attachmentFile")
+		  console.log(this.employeer.opEmpImg, "this.employeer.attach")
+		  console.log(this.employeer.attachmentFileName, "this.employeer.attachmentFileName")
+		}, 2000);
+
+		}
+	}
 	goEmployeerLogin() {
 
 		if (this.EmployeerForm.invalid) {
@@ -84,6 +130,29 @@ export class EmployeeListComponent implements OnInit {
 			return;
 		} else {
 			this.common.hideLoading()
+			console.log(this.employeer, "employeer")
+			// Joining Mobile with dial code
+			var opMobileNo = this.EmployeerForm.get('opPhoneId').value
+			this.employeer.opPhoneId = this.common.convertCompleteCountryCode(opMobileNo)
+
+
+			this.apiService.post(this.constantsService.employeerList, this.employeer).subscribe((succ: any) => {
+				if (succ.status === 200) {
+					this.common.hideLoading()
+					this.common.showSuccessMessage(succ.message);
+				}
+				else {
+					this.common.hideLoading()
+					this.common.showErrorMessage(succ.message)
+	
+				}
+	
+			}, err => {
+				this.common.hideLoading()
+				this.common.showErrorMessage(err.message)
+	
+			})
+
 		}
 	}
 
