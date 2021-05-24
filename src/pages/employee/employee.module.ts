@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import {DropdownModule} from 'primeng/dropdown';
+import {MultiSelectModule} from 'primeng/multiselect';
+
 
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
@@ -35,6 +37,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     DropdownModule,
     AutoCompleteModule,
+    MultiSelectModule,
     NgxIntlTelInputModule
   ],
   declarations: [EmployeeListComponent],

@@ -19,6 +19,21 @@ export class BasicAuthInterceptor implements HttpInterceptor {
         
         let url = request.url;
 
+        if (!url){
+            request = request.clone({
+                setHeaders: {
+                    "Access-Control-Allow-Origin": '*', 
+                    "Access-Control-Allow-Methods": 'GET, POST, OPTIONS, PUT, PATCH, DELETE', 
+                    "Access-Control-Allow-Headers": 'X-Requested-With,content-type', 
+                    "Access-Control-Allow-Credentials": "true",
+                    'Content-Type' : 'application/json; charset=utf-8',
+                    'Accept'       : 'application/json',
+                    
+    
+                }
+            });
+        }
+
         if (url.endsWith(this.constantsService.login)) {
             let opEmailId = request.body.opEmailId;
             let opPassword = request.body.opPassword;

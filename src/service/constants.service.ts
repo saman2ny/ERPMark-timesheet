@@ -10,9 +10,11 @@ export class ConstantsService {
 
    //  Employeeer all list 
    employeerList= "Branch/employeerList"
+   rolesList= "Branch/allselectlist"
 
 
-
+// apis
+bankNamess = "razorpay/ifsc/master/src/banknames.json"
 
 
     leaveList  = "Branch/leavestatus"

@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import { ApiService } from 'src/service/api.service';
+import { CommonService } from 'src/service/common.service';
+import { HttpClient } from '@angular/common/http';
 
+import { ConstantsService } from 'src/service/constants.service';
 @Injectable({
   providedIn: 'root'
 })
 export class BankService {
+  // allBanks: any = {}
+  // apiUrl = 'https://raw.githubusercontent.com/razorpay/ifsc/master/src/banknames.json';
 allBanks = 
   {
     "AACX": "Akhand Anand Co.op Bank",
@@ -1466,8 +1472,13 @@ allBanks =
 
 
 
+
+
 allBanksCode= []
-  constructor() { 
+  constructor(private apiService: ApiService, public constantsService: ConstantsService, private http: HttpClient) { 
+    
+ 
+
     for(let bankCode in this.allBanks){
       var obj = {"keys":this.allBanks[bankCode], "opBankName":this.allBanks[bankCode]}
       this.allBanksCode.push(obj);

@@ -16,6 +16,9 @@ export class ApiService {
   // logesh
 
   baseUrl = 'http://127.0.0.1/ERPMark-timesheet-server/';
+  
+  // baseUrl = 'https://github.com/saman2ny/ERPMark-timesheet-server';
+
   // baseUrl = 'http://127.0.0.1/thinkwise/';
 
   // mukesh
@@ -84,19 +87,17 @@ export class ApiService {
   //       catchError(this.handleError)
   //     );
   // }
-  chatGet(entity, data) {
-    return this.http.get("https://chat.fieldpower.com/" + entity, data)
+  getter(entity, data) {
+    return this.http.get("https://raw.githubusercontent.com/" + entity, data)
       .pipe(
-
         catchError(this.handleError)
       );
   }
 
   put(entity, data) {
 
-    return this.http.post("https://chat.fieldpower.com/" + entity, data)
+    return this.http.post("https://raw.githubusercontent.com/" + entity, data)
       .pipe(
-
         catchError(this.handleError)
       );
   }

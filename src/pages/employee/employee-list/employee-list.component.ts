@@ -11,10 +11,11 @@ import { ConstantsService } from 'src/service/constants.service';
 import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 import { CountryService } from 'src/service/country.service';
 import { BankService } from 'src/service/bank.service';
+import { CountriesService } from 'src/service/countries.service';
 
 // import * as $ from 'jquery'
 declare var $: any;
-declare function datatblesandIts(): any;   
+declare function datatblesandIts(): any;
 
 
 
@@ -39,17 +40,55 @@ export class EmployeeListComponent implements OnInit {
 
 	allCounties: ((string | number | string[])[] | (string | number | number[])[])[];
 	CountryISO: any = [];
+	allCountries: any = [];
+	// all details
+	departmentList: any = [];
+	roleList: any = [];
+	branchList: any =[]
+	designationList: any []
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
-		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService
+		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService, private CountriesService:CountriesService
 	) {
 
 		this.user = this.common.getUser();
 		this.menuType = this.user.data[0]['select'];
+		this.employeer.opCompanyId = this.user.data[0]['companyid'];
+		this.employeer.opEmployeeId = this.user.data[0]['employeeid'];
+
+		// telephone
 		this.allCounties = this.countryService.allCountries;
 		this.CountryISO = this.countryService.getcountryCode();
+		// Banks
 		this.allBanks = this.BankService.getcodeBank();
 		this.employeer.opBankName = this.allBanks[0];
+		// country
+		this.allCountries = this.CountriesService.countries;
+		this.employeer.opCountry = this.allCountries[0];
+		// Department
+		this.apiService.post(this.constantsService.rolesList, {}).subscribe((succ: any) => {
+			console.log(succ.department, "department")
+			if (succ.status === 200) {
+				this.common.hideLoading()
+				this.departmentList = succ.department
+				this.roleList = succ.roles
+				this.branchList = succ.branchlist
+				this.designationList = succ.designation
+			}
+			else {
+				this.common.hideLoading()
+				this.common.showErrorMessage(succ.message)
+
+			}
+
+		}, err => {
+			this.common.hideLoading()
+			this.common.showErrorMessage(err.message)
+
+		})
+
+
+
 
 
 		// console.log(this.allBanks)
@@ -76,18 +115,19 @@ export class EmployeeListComponent implements OnInit {
 			opGender: ['', Validators.required],
 			opDateOfBirth: ['', Validators.required],
 			opAddress: ['', Validators.required],
+			opCountry: ['', Validators.required],
 			opPhoneId: ['', Validators.required],
 			opEmailId: ['', Validators.required],
 			opPassword: ['', Validators.required],
 			opConfirmPassword: ['', Validators.required],
 			opPanNo: ['', Validators.required],
-			opAadharNo: ['', Validators.required],
+			opAadharNo: [''],
 			opBankName: ['', Validators.required],
-			opIFSC: ['', Validators.required],
+			opIFSC: [''],
 			opAcctNo: ['', Validators.required],
 			opPassport: ['', Validators.required],
 			opTeamName: ['', Validators.required],
-			opTeamId: ['', Validators.required],
+			// opTeamId: ['', Validators.required],
 			opEmpDepart: ['', Validators.required],
 			opEmpDest: ['', Validators.required],
 			opEmpImgDisplay: [''],
@@ -169,7 +209,10 @@ export class EmployeeListComponent implements OnInit {
 			console.log(succ.data, "datataa")
 			if (succ.status === 200) {
 				this.common.hideLoading()
+				this.employeer.opCompanyId = "CMP10001";
+
 				this.employeerList = succ.data
+
 			}
 			else {
 				this.common.hideLoading()
