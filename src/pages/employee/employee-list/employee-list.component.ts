@@ -193,10 +193,21 @@ export class EmployeeListComponent implements OnInit {
 		} else {
 			this.common.hideLoading()
 			console.log(this.employeer, "employeer")
+
+
 			// Joining Mobile with dial code
 			var opMobileNo = this.EmployeerForm.get('opPhoneId').value
 			this.employeer.opPhoneId = this.common.convertCompleteCountryCode(opMobileNo)
-
+			// roles
+    		this.employeer.opRole = this.employeer.opRole.roleId;
+			// Branch
+    		this.employeer.opSelectBranch = this.employeer.opSelectBranch.branchid;
+			// Desigination
+    		this.employeer.opEmpDesg = this.employeer.opEmpDesg.designationId;
+			// Department
+			this.employeer.opEmpDepart = this.employeer.opEmpDepart.departmentId;
+			// Teams
+			this.employeer.opTeamName = this.employeer.opTeamName.teamId;
 
 			this.apiService.post(this.constantsService.employeerList, this.employeer).subscribe((succ: any) => {
 				if (succ.status === 200) {
