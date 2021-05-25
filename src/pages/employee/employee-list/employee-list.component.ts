@@ -70,10 +70,20 @@ export class EmployeeListComponent implements OnInit {
 			console.log(succ.department, "department")
 			if (succ.status === 200) {
 				this.common.hideLoading()
+
+
 				this.departmentList = succ.department
+				this.employeer.opEmpDepart = this.departmentList[0]
+
 				this.roleList = succ.roles
+				this.employeer.opRole = this.roleList[0]
+
 				this.branchList = succ.branchlist
+				this.employeer.opSelectBranch = this.branchList[0]
+
 				this.designationList = succ.designation
+				this.employeer.opEmpDesg = this.designationList[0]
+				
 			}
 			else {
 				this.common.hideLoading()
@@ -106,8 +116,8 @@ export class EmployeeListComponent implements OnInit {
 		this.EmployeerForm = this.formBuilder.group({
 			opCompanyId: ['', Validators.required],
 			opEmployeeId: ['', Validators.required],
-			opRole: ['', Validators.required],
-			opSelectBranch: ['', Validators.required],
+			opRole: [''],
+			opSelectBranch: [''],
 			opFirstName: ['', Validators.compose([Validators.required])],
 			opLastName: [''],
 			opDateOfJoin: ['', Validators.required],
@@ -129,7 +139,6 @@ export class EmployeeListComponent implements OnInit {
 			opTeamName: ['', Validators.required],
 			// opTeamId: ['', Validators.required],
 			opEmpDepart: ['', Validators.required],
-			opEmpDest: ['', Validators.required],
 			opEmpImgDisplay: [''],
 			opEmpImg: ['', Validators.required]
 
