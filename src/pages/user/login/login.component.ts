@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
 		} else {
 			this.common.showLoading()
 			this.apiService.post(this.constantsService.login, this.user).subscribe((succ: any) => {
-			
+				console.log(succ.data, "datataa")
 				this.common.hideLoading()
 				if (succ.code == 200) {
 						this.common.showSuccessMessage(succ.message)
