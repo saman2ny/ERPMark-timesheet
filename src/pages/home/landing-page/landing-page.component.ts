@@ -37,7 +37,7 @@ export class LandingPageComponent implements OnInit {
 }
 
 goTo(mainPages){
-  this.router.navigate([mainPages.path])
+  this.router.navigate([mainPages.route_path])
 }
 
 logout(){
