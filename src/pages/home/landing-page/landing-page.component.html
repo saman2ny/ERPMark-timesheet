@@ -115,7 +115,7 @@
          </div>
 
 
-        <div class="sidebar" id="sidebar" *ngIf='menuType === "Company" '>
+        <div class="sidebar" id="sidebar" *ngIf='menuType === "zzzz" '>
         <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
         <ul>
@@ -252,14 +252,19 @@
         <span>Resigination</span></a>
         </li>
 
-        <li class="submenu">
+        <li>
+            <a routerLink="/home/allocate-task/list-task"><i class="la la-users"></i>
+            <span>Project Allocation</span></a>
+            </li>
+
+        <!-- <li class="submenu">
         <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Task Allocation</span> <span class="menu-arrow"></span></a>
         <ul style="display: none;">
         <li><a  routerLink="/home/allocate-task/list-task">Project 1</a></li>
         <li><a routerLink="/home/allocate-task/list-task">Project 2 <span class="badge badge-pill bg-primary float-right">1</span></a></li>
         <li><a routerLink="/home/allocate-task/list-task">Project 3</a></li>
         </ul>
-        </li>
+        </li> -->
 
         <li class="menu-title">
         <span>Settings</span>
