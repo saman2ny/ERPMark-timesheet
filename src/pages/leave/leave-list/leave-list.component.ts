@@ -20,30 +20,48 @@ declare function datatblesandIts(): any;
   styleUrls: ['./leave-list.component.css']
 })
 export class LeaveListComponent implements OnInit {
-
+  reqObj: any ={
+	  "moduleName": "leaveStatus"
+  }
+  leaveLister: any = [];
   constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location
 	) { 
 
-    this.loadList()
+   // this.loadList()
   }
 
   ngOnInit(): void {
+    this.leaveList()
     datatblesandIts();
   }
 
-  loadList(){
-    this.apiService.post(this.constantsService.leaveList, {}).subscribe((succ: any) => {
-			
-      this.common.hideLoading();
-      this.loadList = succ.data
- 
+  leaveList(){
+    this.common.showLoading()
+    this.apiService.post(this.constantsService.employeerList, this.reqObj).subscribe((succ: any) => {
+
+      console.log(succ, "datataa")
+      // console.log(succ.data, "datataa")
+      if (succ.status === 200) {
+        this.common.hideLoading()
+        this.leaveLister = succ.data
+      }
+  
+      else {
+        this.common.hideLoading()
+        this.common.showErrorMessage(succ.message)
+  
+      }
+
     }, err => {
+      console.log("err", err)
       this.common.hideLoading()			
       this.common.showErrorMessage(err.message)
-      // this.location.back();
 
     })
+
+
+
 
   }
 

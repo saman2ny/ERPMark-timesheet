@@ -15,26 +15,28 @@ declare function datatblesandIts(): any;
 
 
 @Component({
-  selector: 'app-employee-list',
-  templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css']
+	selector: 'app-employee-list',
+	templateUrl: './employee-list.component.html',
+	styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
 	EmployeerForm: FormGroup;
-  employeer: any ={}
-  reqObj: any ={
-	  "moduleName": "employee"
-  }
-  employeerList: any =[]
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
+	employeer: any = {}
+	reqObj: any = {
+		"moduleName": "employeer"
+	}
+	employeerList: any = []
+	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location
 	) { }
 
-  ngOnInit(): void {
-    datatblesandIts()
-	this.employeeList()
 
-    this.EmployeerForm = this.formBuilder.group({
+	ngOnInit(): void {
+		this.employeeList()
+		datatblesandIts()
+
+
+		this.EmployeerForm = this.formBuilder.group({
 			opFirstName: ['', Validators.compose([Validators.required])],
 			opLastName: ['', Validators.required],
 			opUserName: ['', Validators.required],
@@ -47,40 +49,37 @@ export class EmployeeListComponent implements OnInit {
 			opEmpDepart: ['', Validators.required],
 		});
 
-  }
+	}
 
-  goEmployeerLogin(){
+	goEmployeerLogin() {
 
-    if (this.EmployeerForm.invalid) {
+		if (this.EmployeerForm.invalid) {
 			this.EmployeerForm.markAllAsTouched();
 			return;
 		} else {
-      this.common.hideLoading()
-    }
-  }
-
-  employeeList(){
-
-	this.apiService.post(this.constantsService.employeerList, this.reqObj).subscribe((succ: any) => {
-		console.log(succ.data, "datataa")
-		if (succ.code == 200) {
-			this.employeerList = succ.data
-		}
-
-
-		else {
 			this.common.hideLoading()
-			this.common.showErrorMessage(succ.message)
-			this.router.navigateByUrl('/');
-
 		}
+	}
 
+	employeeList() {
+		this.common.showLoading()
+		this.apiService.post(this.constantsService.employeerList, this.reqObj).subscribe((succ: any) => {
+			console.log(succ.data, "datataa")
+			if (succ.status === 200) {
+				this.common.hideLoading()
+				this.employeerList = succ.data
+			}
+			else {
+				this.common.hideLoading()
+				this.common.showErrorMessage(succ.message)
 
-	}, err => {
-		this.common.hideLoading()
-		this.common.showErrorMessage(err.message)
+			}
 
-	})
+		}, err => {
+			this.common.hideLoading()
+			this.common.showErrorMessage(err.message)
 
-  }
+		})
+
+	}
 }

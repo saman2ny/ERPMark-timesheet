@@ -9,7 +9,7 @@ export class ConstantsService {
     login = "Branch/index";
 
    //  Employeeer
-   employeerList= "employeerList"
+   employeerList= "Branch/employeerList"
 
 
 
