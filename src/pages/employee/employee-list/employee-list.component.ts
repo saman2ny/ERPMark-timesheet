@@ -37,13 +37,14 @@ export class EmployeeListComponent implements OnInit {
 
 
 		this.EmployeerForm = this.formBuilder.group({
+			opCompanyId: ['', Validators.required],
+			opEmployeeId: ['', Validators.required],
 			opFirstName: ['', Validators.compose([Validators.required])],
 			opLastName: ['', Validators.required],
 			opUserName: ['', Validators.required],
 			opEmailId: ['', Validators.required],
 			opPassword: ['', Validators.required],
 			opConfirmPassword: ['', Validators.required],
-			opEmployeeId: ['', Validators.required],
 			opPhoneId: ['', Validators.required],
 			opEmpDesg: ['', Validators.required],
 			opEmpDepart: ['', Validators.required],
