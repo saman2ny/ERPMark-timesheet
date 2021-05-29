@@ -28,7 +28,7 @@
     "intl-tel-input": "^17.0.3",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
-    "ng-pick-datetime": "^7.0.0",
+    "ng-pick-datetime": "^5.2.6",
     "ng-recaptcha": "^7.0.1",
     "ng2-izitoast": "^2.0.0",
     "ngx-bootstrap": "^6.2.0",

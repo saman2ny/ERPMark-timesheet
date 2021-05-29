@@ -101,8 +101,8 @@
                         <div class="col-md-6">  
                             <div class="form-group">
                                 <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
-                                <input class="form-control floating" type="text" [(ngModel)]="employeer.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
-                                <div class="error" *ngIf="EmployeerForm.controls['opCompanyId'].hasError('required') && EmployeerForm.controls['opCompanyId'].touched">
+                                <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
+                                <div  class="error" *ngIf="EmployeerForm.controls['opCompanyId'].hasError('required') && EmployeerForm.controls['opCompanyId'].touched">
                                     Company ID is Required</div>
                             </div>
                         </div>
@@ -110,8 +110,8 @@
                         <div class="col-md-6">  
                             <div class="form-group">
                                 <label class="col-form-label">Employeer ID <span class="text-danger">*</span></label>
-                                <input class="form-control floating" type="text" [(ngModel)]="employeer.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
-                                <div class="error" *ngIf="EmployeerForm.controls['opEmployeeId'].hasError('required') && EmployeerForm.controls['opEmployeeId'].touched">
+                                <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
+                                <div  class="error" *ngIf="EmployeerForm.controls['opEmployeeId'].hasError('required') && EmployeerForm.controls['opEmployeeId'].touched">
                                     Employeer ID is Required</div>
                             </div>
                         </div>
@@ -135,12 +135,99 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label">Username <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" [(ngModel)]="employeer.opUserName"  formControlName="opUserName" id="opUserName">
-                                <div class="error" *ngIf="EmployeerForm.controls['opUserName'].hasError('required') && EmployeerForm.controls['opUserName'].touched">
-                                    User Name is Required</div>
+                                <label class="col-form-label">Role <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opRole"  formControlName="opRole" id="opRole" value="Employee">
+                                <div class="error" *ngIf="EmployeerForm.controls['opRole'].hasError('required') && EmployeerForm.controls['opRole'].touched">
+                                    Role is Required</div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Branch <span class="text-danger">*</span></label>
+                                <select class="form-control" [(ngModel)]="employeer.opRole" formControlName="opRole" id="opRole">
+                                    <option value="Role">Role</option>
+                                    <option value="Role">Role</option>
+                                    <option value="Role">Role</option>
+                                </select>
+                                <div class="error" *ngIf="EmployeerForm.controls['opRole'].hasError('required') && EmployeerForm.controls['opRole'].touched">
+                                    Role is Required</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Date of join <span class="text-danger">*</span></label>
+                                <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="opDateOfJoin"
+                                 [(ngModel)]="employeer.opDateOfJoin" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                                 <owl-date-time #dt1></owl-date-time>
+
+                                <div class="error" *ngIf="EmployeerForm.controls['opDateOfJoin'].hasError('required') && EmployeerForm.controls['opDateOfJoin'].touched">
+                                    Date of join is  Required</div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Employeer Designation</label>
+                                <select class="form-control" [(ngModel)]="employeer.opEmpDesg" formControlName="opEmpDesg" id="opEmpDesg">
+                                    <option value="Designation">Designation</option>
+                                    <option value="Designation">Designation</option>
+                                    <option value="Designation">Designation</option>
+                                    
+                                </select>
+                            </div>
+            
+                            <div class="error" *ngIf="EmployeerForm.controls['opEmpDesg'].hasError('required') && EmployeerForm.controls['opEmpDesg'].touched">
+                                Designation is Required</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Gender</label>
+                                <select class="form-control" [(ngModel)]="employeer.opGender" formControlName="opGender" id="opGender">
+                                    <option value="Select">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    
+                                </select>
+                            </div>
+            
+                            <div class="error" *ngIf="EmployeerForm.controls['opGender'].hasError('required') && EmployeerForm.controls['opGender'].touched">
+                                Gender is Required</div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Date of join <span class="text-danger">*</span></label>
+                                <input [owlDateTime]="dt2" [min]="joinDate" class="form-control" formControlName="opDateOfBirth"
+                                 [(ngModel)]="employeer.opDateOfBirth" [owlDateTimeTrigger]="dt2" placeholder="Date Time">
+                                                     <owl-date-time #dt2></owl-date-time>
+
+                                <div class="error" *ngIf="EmployeerForm.controls['opDateOfBirth'].hasError('required') && EmployeerForm.controls['opDateOfBirth'].touched">
+                                    Date of birth is  Required</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Address <span class="text-danger">*</span></label>
+                                <textarea class="form-control floating" type="email" [(ngModel)]="employeer.opAddress"  formControlName="opAddress" id="opAddress" rows="3"></textarea>
+                                <div class="error" *ngIf="EmployeerForm.controls['opAddress'].hasError('required') && EmployeerForm.controls['opAddress'].touched">
+                                    Address is Required</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Phone </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opPhoneId" formControlName="opPhoneId" id="opPhoneId">
+                                <div class="error" *ngIf="EmployeerForm.controls['opPhoneId'].hasError('required') && EmployeerForm.controls['opPhoneId'].touched">
+                                    Phone is Required</div>
+                            </div>
+                        </div>
+                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Email <span class="text-danger">*</span></label>
@@ -168,26 +255,81 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label">Phone </label>
-                                <input class="form-control" type="text" [(ngModel)]="employeer.opPhoneId" formControlName="opPhoneId" id="opPhoneId">
-                                <div class="error" *ngIf="EmployeerForm.controls['opPhoneId'].hasError('required') && EmployeerForm.controls['opPhoneId'].touched">
-                                    Phone is Required</div>
+                                <label class="col-form-label">Pan card </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opPanNo" formControlName="opPanNo" id="opPanNo">
+                                <div class="error" *ngIf="EmployeerForm.controls['opPanNo'].hasError('required') && EmployeerForm.controls['opPanNo'].touched">
+                                    Pan Card is Required</div>
                             </div>
                         </div>
+
+                        
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label">Employeer Designation</label>
-                                <select class="form-control" [(ngModel)]="employeer.opEmpDesg" formControlName="opEmpDesg" id="opEmpDesg">
-                                    <option value="Designation">Designation</option>
-                                    <option value="Designation">Designation</option>
-                                    <option value="Designation">Designation</option>
-                                    
-                                </select>
+                                <label class="col-form-label">Aadhar Card </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opAadharNo" formControlName="opAadharNo" id="opAadharNo">
+                                <div class="error" *ngIf="EmployeerForm.controls['opAadharNo'].hasError('required') && EmployeerForm.controls['opAadharNo'].touched">
+                                    Aadhar is Required</div>
                             </div>
-            
-                            <div class="error" *ngIf="EmployeerForm.controls['opEmpDesg'].hasError('required') && EmployeerForm.controls['opEmpDesg'].touched">
-                                Designation is Required</div>
                         </div>
+
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Bank name </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opBankName" formControlName="opBankName" id="opBankName">
+                                <div class="error" *ngIf="EmployeerForm.controls['opBankName'].hasError('required') && EmployeerForm.controls['opBankName'].touched">
+                                    Bank Name is Required</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Bank name </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opIFSC" formControlName="opIFSC" id="opIFSC">
+                                <div class="error" *ngIf="EmployeerForm.controls['opIFSC'].hasError('required') && EmployeerForm.controls['opIFSC'].touched">
+                                    IFSC is Required</div>
+                            </div>
+                        </div>
+                
+                           
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Account number </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opAcctNo" formControlName="opAcctNo" id="opAcctNo">
+                                <div class="error" *ngIf="EmployeerForm.controls['opAcctNo'].hasError('required') && EmployeerForm.controls['opAcctNo'].touched">
+                                    Account number is Required</div>
+                            </div>
+                        </div>
+
+                           
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Passport </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opPassport" formControlName="opPassport" id="opPassport">
+                                <div class="error" *ngIf="EmployeerForm.controls['opPassport'].hasError('required') && EmployeerForm.controls['opPassport'].touched">
+                                    Passport is Required</div>
+                            </div>
+                        </div>
+                           
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Team name </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" id="opTeamName">
+                                <div class="error" *ngIf="EmployeerForm.controls['opTeamName'].hasError('required') && EmployeerForm.controls['opTeamName'].touched">
+                                    Team name is Required</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Team id </label>
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opTeamId" formControlName="opTeamId" id="opTeamId">
+                                <div class="error" *ngIf="EmployeerForm.controls['opTeamId'].hasError('required') && EmployeerForm.controls['opTeamId'].touched">
+                                    Team id is Required</div>
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Employeer Department</label>
@@ -201,6 +343,21 @@
                                 Department is Required</div>
 
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Employeer Desigination</label>
+                                <select class="form-control" [(ngModel)]="employeer.opEmpDest" formControlName="opEmpDest" id="opEmpDest">
+                                    <option value="Select">Select</option>
+                                    <option value="Desigination">Desigination</option>
+                                    <option value="Desigination">Desigination</option>
+                                </select>
+                            </div>
+                            <div class="error" *ngIf="EmployeerForm.controls['opEmpDest'].hasError('required') && EmployeerForm.controls['opEmpDest'].touched">
+                                Desigination is Required</div>
+
+                        </div>
+
                     </div>
                     
                     
@@ -211,7 +368,7 @@
 
 
 
-                    <div class="table-responsive m-t-15">
+                    <div class="table-responsive m-t-15" *ngIf="menuType === 'Branch' ">
                         <table class="table table-striped custom-table">
                             <thead>
                                 <tr>
