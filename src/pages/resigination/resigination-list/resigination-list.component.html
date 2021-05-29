@@ -43,18 +43,18 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr *ngFor="let resigination of resiginations">
 											<td>1</td>
 											<td>
 												<h2 class="table-avatar blue-link">
 													<a href="profile.html" class="avatar"><img alt="" src="assets/img/profiles/avatar-02.jpg"></a>
-													<a href="profile.html">John Doe</a>
+													<a href="profile.html">{{resigination.empname}}</a>
 												</h2>
 											</td>
-											<td>Web Development</td>
-											<td>Lorem ipsum dollar</td>
-											<td>28 Feb 2019</td>
-											<td>28 Feb 2019</td>
+											<td>{{resigination.department}}</td>
+											<td>{{resigination.reason}}</td>
+											<td>{{resigination.notice_date}}</td>
+											<td>{{resigination.resigination_date}}</td>
 											<td class="text-right">
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>

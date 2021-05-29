@@ -39,22 +39,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let timeSheet of timeSheets">
                                 <td>
                                     <h2 class="table-avatar">
                                         <a href="profile.html" class="avatar"><img alt=""
                                                 src="assets/img/profiles/avatar-02.jpg"></a>
-                                        <a href="profile.html">John Doe <span>Web Designer</span></a>
+                                        <a href="profile.html">{{timeSheet.empname}} <span>{{timeSheet.employeeid}}</span></a>
                                     </h2>
                                 </td>
-                                <td>8 Mar 2019</td>
+                                <td>{{timeSheet.date}}</td>
                                 <td>
-                                    <h2>Office Management</h2>
+                                    <h2>{{timeSheet.project}}</h2>
                                 </td>
-                                <td class="text-center">20</td>
+                                <td class="text-center">{{timeSheet.assignedhours}}</td>
                                 <td class="text-center">7</td>
-                                <td class="d-none d-sm-table-cell col-md-4">Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Donec vel elit neque.</td>
+                                <td class="d-none d-sm-table-cell col-md-4">{{timeSheet.description}}</td>
                                 <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"

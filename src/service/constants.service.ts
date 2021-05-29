@@ -8,7 +8,7 @@ export class ConstantsService {
     token="pushToken"
     login = "Branch/index";
 
-   //  Employeeer
+   //  Employeeer all list 
    employeerList= "Branch/employeerList"
 
 

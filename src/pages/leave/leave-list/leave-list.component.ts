@@ -59,10 +59,6 @@ export class LeaveListComponent implements OnInit {
       this.common.showErrorMessage(err.message)
 
     })
-
-
-
-
   }
 
 }
