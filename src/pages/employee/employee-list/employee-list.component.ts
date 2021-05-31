@@ -14,7 +14,7 @@ import { BankService } from 'src/service/bank.service';
 
 // import * as $ from 'jquery'
 declare var $: any;
-declare function datatblesandIts(): any;
+declare function datatblesandIts(): any;   
 
 
 
