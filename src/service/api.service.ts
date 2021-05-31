@@ -16,6 +16,8 @@ export class ApiService {
   // logesh
 
   baseUrl = 'http://127.0.0.1/ERPMark-timesheet-server/';
+
+  // baseUrl = 'https://erpmarktesting.000webhostapp.com/';
   
   // baseUrl = 'https://github.com/saman2ny/ERPMark-timesheet-server';
 
@@ -52,7 +54,7 @@ export class ApiService {
   // baseUrl = 'http://172.16.8.146:8080/EA/';  
 
   //oracle live
-  //  baseUrl = 'http://enterprisealert.ducont.com:8080/EA/';
+  //  baseUrl = 'https://easerver.ducont.com/';
 
   // scheduleUrl = 'http://enterprisealert.ducont.com:8080/scheduler/';
   //sql database

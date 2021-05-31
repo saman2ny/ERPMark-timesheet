@@ -25,7 +25,7 @@ declare function datatblesandIts(): any;
 	styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-	EmployeerForm: FormGroup;
+	EmployeeeForm: FormGroup;
 	employeer: any = {}
 	reqObj: any = {
 		"moduleName": "employeer"
@@ -47,6 +47,7 @@ export class EmployeeListComponent implements OnInit {
 	branchList: any =[]
 	designationList: any []
 	teamList: any [];
+	title: any = {};
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService, private CountriesService:CountriesService
@@ -115,9 +116,11 @@ export class EmployeeListComponent implements OnInit {
 	ngOnInit(): void {
 		this.employeeList()
 		datatblesandIts()
+		this.title ="Add"
 
 
-		this.EmployeerForm = this.formBuilder.group({
+
+		this.EmployeeeForm = this.formBuilder.group({
 			opCompanyId: ['', Validators.required],
 			opEmployeeId: ['', Validators.required],
 			opRole: [''],
@@ -153,7 +156,18 @@ export class EmployeeListComponent implements OnInit {
 	}
 
 	openModal(){
+		this.title ="Add"
+
 		// $("#add_client").modal('show');
+		$('#add_client').modal({
+			backdrop: 'static',
+			keyboard: false
+		})
+	}
+
+	editModal(employeee){
+		this.title ="Edit"
+		this.employeer = employeee
 		$('#add_client').modal({
 			backdrop: 'static',
 			keyboard: false
@@ -187,8 +201,8 @@ export class EmployeeListComponent implements OnInit {
 	}
 	goEmployeerLogin() {
 
-		if (this.EmployeerForm.invalid) {
-			this.EmployeerForm.markAllAsTouched();
+		if (this.EmployeeeForm.invalid) {
+			this.EmployeeeForm.markAllAsTouched();
 			return;
 		} else {
 			this.common.hideLoading()
@@ -196,7 +210,7 @@ export class EmployeeListComponent implements OnInit {
 
 
 			// Joining Mobile with dial code
-			var opMobileNo = this.EmployeerForm.get('opPhoneId').value
+			var opMobileNo = this.EmployeeeForm.get('opPhoneId').value
 			this.employeer.opPhoneId = this.common.convertCompleteCountryCode(opMobileNo)
 			// roles
     		this.employeer.opRole = this.employeer.opRole.roleId;
@@ -235,7 +249,7 @@ export class EmployeeListComponent implements OnInit {
 			console.log(succ.data, "datataa")
 			if (succ.status === 200) {
 				this.common.hideLoading()
-				this.employeer.opCompanyId = "CMP10001";
+				// this.employeer.opCompanyId = "CMP10001";
 
 				this.employeerList = succ.data
 				this.employeer.opEmployeeId = succ.empid['maxCEId']

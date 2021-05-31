@@ -74,10 +74,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "erp-timesheet:build"
+
           },
           "configurations": {
             "production": {
-              "browserTarget": "erp-timesheet:build:production"
+              "browserTarget": "erp-timesheet:build:production",
+              "disableHostCheck": true
+
             }
           }
         },

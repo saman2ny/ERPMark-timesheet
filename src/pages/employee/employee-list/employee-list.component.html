@@ -48,8 +48,7 @@
             <div class="form-group form-focus select-focus">
                 <select class="select floating"> 
                     <option>Select Branch</option>
-                    <option>Melbourne</option>
-                    <option>Dezturiza</option>
+                    <option *ngFor="let branches of opSelectBranch">{{branches.branch}}</option>
                 </select>
                 <label class="focus-label">Branch</label>
             </div>
@@ -61,7 +60,7 @@
     <!-- Search Filter -->
     
     <div class="row staff-grid-row" >
-        <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" *ngFor="let employeer of employeerList" >
+        <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" *ngFor="let employeee of employeerList" >
             <div class="profile-widget">
                 <div class="profile-img">
                     <a href="client-profile.html" class="avatar"><img alt="" src="../assets/img/profiles/avatar-21.jpg"></a>
@@ -69,13 +68,13 @@
                 <div class="dropdown profile-action">
                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_client"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                    <a class="dropdown-item" href="#"  data-toggle="modal" (click)="editModal(employeee)" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                 </div>
                 </div>
                 <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="client-profile.html"> Company Name</a></h4>
-                <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a href="client-profile.html">{{employeer.firstname}} Employerr name</a></h5>
-                <div class="small text-muted">{{employeer.designation}} Employerr position</div>
+                <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a href="client-profile.html">{{employeer.firstname}} Employeee name</a></h5>
+                <div class="small text-muted">{{employeer.designation}} Employeee position</div>
                 <a href="chat.html" class="btn btn-white btn-sm m-t-10">Message</a>
                 <a href="client-profile.html" class="btn btn-white btn-sm m-t-10">View Profile</a>
             </div>
@@ -89,20 +88,20 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Employeee</h5>
+                <h5 class="modal-title">{{title}} Employeee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="EmployeerForm">
+                <form [formGroup]="EmployeeeForm">
                     <div class="row">
                      
                         <div class="col-md-6">  
                             <div class="form-group">
                                 <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
                                 <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
-                                <div  class="error" *ngIf="EmployeerForm.controls['opCompanyId'].hasError('required') && EmployeerForm.controls['opCompanyId'].touched">
+                                <div  class="error" *ngIf="EmployeeeForm.controls['opCompanyId'].hasError('required') && EmployeeeForm.controls['opCompanyId'].touched">
                                     Company ID is Required</div>
                             </div>
                         </div>
@@ -111,7 +110,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Employeer ID <span class="text-danger">*</span></label>
                                 <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
-                                <div  class="error" *ngIf="EmployeerForm.controls['opEmployeeId'].hasError('required') && EmployeerForm.controls['opEmployeeId'].touched">
+                                <div  class="error" *ngIf="EmployeeeForm.controls['opEmployeeId'].hasError('required') && EmployeeeForm.controls['opEmployeeId'].touched">
                                     Employeer ID is Required</div>
                             </div>
                         </div>
@@ -120,7 +119,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">First Name <span class="text-danger">*</span></label>
                                 <input class="form-control" [(ngModel)]="employeer.opFirstName" type="text" formControlName="opFirstName" id="opFirstName">
-                                <div class="error" *ngIf="EmployeerForm.controls['opFirstName'].hasError('required') && EmployeerForm.controls['opFirstName'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opFirstName'].hasError('required') && EmployeeeForm.controls['opFirstName'].touched">
                                     First Name is Required</div>
 
                             </div>
@@ -129,7 +128,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Last Name</label>
                                 <input class="form-control" type="text" [(ngModel)]="employeer.opLastName"  formControlName="opLastName" id="opLastName">
-                                <div class="error" *ngIf="EmployeerForm.controls['opLastName'].hasError('required') && EmployeerForm.controls['opLastName'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opLastName'].hasError('required') && EmployeeeForm.controls['opLastName'].touched">
                                     Last Name is Required</div>
                             </div>
                         </div>
@@ -137,13 +136,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Role <span class="text-danger">*</span></label>
                                 <p-dropdown optionLabel="role"  optionValue="roleId" [options]="roleList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opRole" formControlName="opRole" [filter]="true"></p-dropdown>
-<!-- 
-                                <select class="form-control" [(ngModel)]="employeer.opRole" formControlName="opRole" id="opRole">
-                                    <option value="Select">Select</option>
-                                    <option value="Role">Role</option>
-                                    <option value="Role">Role</option>
-                                </select> -->
-                                <div class="error" *ngIf="EmployeerForm.controls['opRole'].hasError('required') && EmployeerForm.controls['opRole'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opRole'].hasError('required') && EmployeeeForm.controls['opRole'].touched">
                                     Role is Required</div>
                             </div>
                         </div>
@@ -157,7 +150,7 @@
                                     <option value="Branch">Branch</option>
                                     <option value="Branch">Branch</option>
                                 </select> -->
-                                <div class="error" *ngIf="EmployeerForm.controls['opSelectBranch'].hasError('required') && EmployeerForm.controls['opSelectBranch'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opSelectBranch'].hasError('required') && EmployeeeForm.controls['opSelectBranch'].touched">
                                     Branch is Required</div>
                             </div>
                         </div>
@@ -169,7 +162,7 @@
                                  [(ngModel)]="employeer.opDateOfJoin" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
                                  <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
 
-                                <div class="error" *ngIf="EmployeerForm.controls['opDateOfJoin'].hasError('required') && EmployeerForm.controls['opDateOfJoin'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opDateOfJoin'].hasError('required') && EmployeeeForm.controls['opDateOfJoin'].touched">
                                     Date of join is  Required</div>
                             </div>
                         </div>
@@ -187,7 +180,7 @@
                                 </select> -->
                             </div>
             
-                            <div class="error" *ngIf="EmployeerForm.controls['opEmpDesg'].hasError('required') && EmployeerForm.controls['opEmpDesg'].touched">
+                            <div class="error" *ngIf="EmployeeeForm.controls['opEmpDesg'].hasError('required') && EmployeeeForm.controls['opEmpDesg'].touched">
                                 Designation is Required</div>
                         </div>
 
@@ -202,7 +195,7 @@
                                 </select>
                             </div>
             
-                            <div class="error" *ngIf="EmployeerForm.controls['opGender'].hasError('required') && EmployeerForm.controls['opGender'].touched">
+                            <div class="error" *ngIf="EmployeeeForm.controls['opGender'].hasError('required') && EmployeeeForm.controls['opGender'].touched">
                                 Gender is Required</div>
                         </div>
 
@@ -214,7 +207,7 @@
                                  [(ngModel)]="employeer.opDateOfBirth"  [owlDateTimeTrigger]="dt2" placeholder="Date of birth">
                                                      <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
 
-                                <div class="error" *ngIf="EmployeerForm.controls['opDateOfBirth'].hasError('required') && EmployeerForm.controls['opDateOfBirth'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opDateOfBirth'].hasError('required') && EmployeeeForm.controls['opDateOfBirth'].touched">
                                     Date of birth is  Required</div>
                             </div>
                         </div>
@@ -224,7 +217,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Address <span class="text-danger">*</span></label>
                                 <textarea class="form-control floating" type="email" [(ngModel)]="employeer.opAddress"  formControlName="opAddress" id="opAddress" rows="3"></textarea>
-                                <div class="error" *ngIf="EmployeerForm.controls['opAddress'].hasError('required') && EmployeerForm.controls['opAddress'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opAddress'].hasError('required') && EmployeeeForm.controls['opAddress'].touched">
                                     Address is Required</div>
                             </div>
                         </div>
@@ -234,7 +227,7 @@
                                 <label class="col-form-label">Country </label>
                                 <p-dropdown optionLabel="name"  optionValue="name" [options]="allCountries" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opCountry" formControlName="opCountry" [filter]="true"></p-dropdown>
 
-                                <div class="error" *ngIf="EmployeerForm.controls['opCountry'].hasError('required') && EmployeerForm.controls['opCountry'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opCountry'].hasError('required') && EmployeeeForm.controls['opCountry'].touched">
                                     Country is Required</div>
                             </div>
                         </div>
@@ -248,9 +241,9 @@
                       formControlName="opPhoneId" [onlyCountries]="CountryISO"  name="phone">
                     </ngx-intl-tel-input>
                                 <!-- <input class="form-control" type="text" [(ngModel)]="employeer.opPhoneId" formControlName="opPhoneId" id="opPhoneId"> -->
-                                <div class="error" *ngIf="EmployeerForm.controls['opPhoneId'].hasError('required') && EmployeerForm.controls['opPhoneId'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opPhoneId'].hasError('required') && EmployeeeForm.controls['opPhoneId'].touched">
                                     Phone is Required</div>
-                                    <div class="error error-position" *ngIf="EmployeerForm.controls['opPhoneId'].hasError('validatePhoneNumber') && EmployeerForm.controls['opPhoneId'].touched">
+                                    <div class="error error-position" *ngIf="EmployeeeForm.controls['opPhoneId'].hasError('validatePhoneNumber') && EmployeeeForm.controls['opPhoneId'].touched">
                                         Ouch! Invalid number  </div>
                             </div>
                         </div>
@@ -259,7 +252,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Email <span class="text-danger">*</span></label>
                                 <input class="form-control floating" type="email" [(ngModel)]="employeer.opEmailId"  formControlName="opEmailId" id="opEmailId">
-                                <div class="error" *ngIf="EmployeerForm.controls['opEmailId'].hasError('required') && EmployeerForm.controls['opEmailId'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opEmailId'].hasError('required') && EmployeeeForm.controls['opEmailId'].touched">
                                     Email Id is Required</div>
                             </div>
                         </div>
@@ -267,7 +260,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Password</label>
                                 <input class="form-control" type="password" [(ngModel)]="employeer.opPassword"  formControlName="opPassword" id="opPassword">
-                                <div class="error" *ngIf="EmployeerForm.controls['opPassword'].hasError('required') && EmployeerForm.controls['opPassword'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opPassword'].hasError('required') && EmployeeeForm.controls['opPassword'].touched">
                                     Password is Required</div>
                             </div>
                         </div>
@@ -275,9 +268,9 @@
                             <div class="form-group">
                                 <label class="col-form-label">Confirm Password</label>
                                 <input class="form-control" type="password" [(ngModel)]="employeer.opConfirmPassword" pattern="{{ employeer.opPassword }}" formControlName="opConfirmPassword" id="opConfirmPassword">
-                                <div class="error" *ngIf="EmployeerForm.controls['opConfirmPassword'].hasError('required') && EmployeerForm.controls['opConfirmPassword'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opConfirmPassword'].hasError('required') && EmployeeeForm.controls['opConfirmPassword'].touched">
                                    Confirm Password is Required</div>
-                                   <div class="error" *ngIf="EmployeerForm.get('opConfirmPassword').hasError('pattern')">
+                                   <div class="error" *ngIf="EmployeeeForm.get('opConfirmPassword').hasError('pattern')">
                                     Password dosen't match</div>
                             </div>
                         </div>
@@ -286,7 +279,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Pan card </label>
                                 <input class="form-control" type="text" [(ngModel)]="employeer.opPanNo" formControlName="opPanNo" id="opPanNo">
-                                <div class="error" *ngIf="EmployeerForm.controls['opPanNo'].hasError('required') && EmployeerForm.controls['opPanNo'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opPanNo'].hasError('required') && EmployeeeForm.controls['opPanNo'].touched">
                                     Pan Card is Required</div>
                             </div>
                         </div>
@@ -296,7 +289,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Aadhar Card </label>
                                 <input class="form-control" type="text" [(ngModel)]="employeer.opAadharNo" formControlName="opAadharNo" id="opAadharNo">
-                                <div class="error" *ngIf="EmployeerForm.controls['opAadharNo'].hasError('required') && EmployeerForm.controls['opAadharNo'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opAadharNo'].hasError('required') && EmployeeeForm.controls['opAadharNo'].touched">
                                     Aadhar is Required</div>
                             </div>
                         </div>
@@ -311,7 +304,7 @@
                                 </select> -->
                                 <p-dropdown optionLabel="opBankName"  optionValue="keys" [options]="allBanks" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opBankName" formControlName="opBankName" [filter]="true"></p-dropdown>
 
-                                <div class="error" *ngIf="EmployeerForm.controls['opBankName'].hasError('required') && EmployeerForm.controls['opBankName'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opBankName'].hasError('required') && EmployeeeForm.controls['opBankName'].touched">
                                     Bank Name is Required</div>
                             </div>
                         </div>
@@ -321,7 +314,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">IFSC code </label>
                                 <input class="form-control" type="text" [(ngModel)]="employeer.opIFSC" formControlName="opIFSC" id="opIFSC">
-                                <div class="error" *ngIf="EmployeerForm.controls['opIFSC'].hasError('required') && EmployeerForm.controls['opIFSC'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opIFSC'].hasError('required') && EmployeeeForm.controls['opIFSC'].touched">
                                     IFSC is Required</div>
                             </div>
                         </div>
@@ -331,7 +324,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Account number </label>
                                 <input class="form-control" type="text" [(ngModel)]="employeer.opAcctNo" formControlName="opAcctNo" id="opAcctNo">
-                                <div class="error" *ngIf="EmployeerForm.controls['opAcctNo'].hasError('required') && EmployeerForm.controls['opAcctNo'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opAcctNo'].hasError('required') && EmployeeeForm.controls['opAcctNo'].touched">
                                     Account number is Required</div>
                             </div>
                         </div>
@@ -341,7 +334,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Passport </label>
                                 <input class="form-control" type="text" [(ngModel)]="employeer.opPassport" formControlName="opPassport" id="opPassport">
-                                <div class="error" *ngIf="EmployeerForm.controls['opPassport'].hasError('required') && EmployeerForm.controls['opPassport'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opPassport'].hasError('required') && EmployeeeForm.controls['opPassport'].touched">
                                     Passport is Required</div>
                             </div>
                         </div>
@@ -356,7 +349,7 @@
                                     <option value="TeamName">TeamName</option>
                                     <option value="TeamName">TeamName</option>
                                 </select> -->
-                                <div class="error" *ngIf="EmployeerForm.controls['opTeamName'].hasError('required') && EmployeerForm.controls['opTeamName'].touched">
+                                <div class="error" *ngIf="EmployeeeForm.controls['opTeamName'].hasError('required') && EmployeeeForm.controls['opTeamName'].touched">
                                     Team name is Required</div>
                             </div>
                         </div>
@@ -367,14 +360,8 @@
                             <div class="form-group">
                                 <label class="col-form-label">Employeer Department</label>
                                 <p-dropdown optionLabel="department"  optionValue="departmentId" [options]="departmentList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opEmpDepart" formControlName="opEmpDepart" [filter]="true"></p-dropdown>
-
-                                <!-- <select class="form-control" [(ngModel)]="employeer.opEmpDepart" formControlName="opEmpDepart" id="opEmpDepart">
-                                    <option value="Department">Department</option>
-                                    <option value="Department">Department</option>
-                                    <option value="Department">Department</option>
-                                </select> -->
                             </div>
-                            <div class="error" *ngIf="EmployeerForm.controls['opEmpDepart'].hasError('required') && EmployeerForm.controls['opEmpDepart'].touched">
+                            <div class="error" *ngIf="EmployeeeForm.controls['opEmpDepart'].hasError('required') && EmployeeeForm.controls['opEmpDepart'].touched">
                                 Department is Required</div>
 
                         </div>
@@ -394,7 +381,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Employee Image</label>
                                 <input type="file" name="myfile" id="upload" [(ngModel)]="employeer.opEmpImg" formControlName="opEmpImg" id="opEmpImg" class="file"  (change)="getEmployeerImg($event)"/>
-                            <div class="error" *ngIf="EmployeerForm.controls['opEmpImg'].hasError('required') && EmployeerForm.controls['opEmpImg'].touched">
+                            <div class="error" *ngIf="EmployeeeForm.controls['opEmpImg'].hasError('required') && EmployeeeForm.controls['opEmpImg'].touched">
                                 Employee Img is Required</div>
 
                         </div>
