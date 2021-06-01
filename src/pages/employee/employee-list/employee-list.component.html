@@ -136,13 +136,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Role <span class="text-danger">*</span></label>
-                                <!-- <p-dropdown optionLabel="opBankName"  optionValue="keys" [options]="allBanks" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opRole" formControlName="opRole" [filter]="true"></p-dropdown> -->
-
+                                <p-dropdown optionLabel="role"  optionValue="roleId" [options]="roleList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opRole" formControlName="opRole" [filter]="true"></p-dropdown>
+<!-- 
                                 <select class="form-control" [(ngModel)]="employeer.opRole" formControlName="opRole" id="opRole">
                                     <option value="Select">Select</option>
                                     <option value="Role">Role</option>
                                     <option value="Role">Role</option>
-                                </select>
+                                </select> -->
                                 <div class="error" *ngIf="EmployeerForm.controls['opRole'].hasError('required') && EmployeerForm.controls['opRole'].touched">
                                     Role is Required</div>
                             </div>
@@ -349,7 +349,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Team name </label>
-                                <p-multiSelect  optionLabel="name"  optionValue="name" [options]="allCountries" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" [filter]="true"></p-multiSelect>
+                                <p-multiSelect  optionLabel="teamname"  optionValue="teamId" [options]="teamList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" [filter]="true"></p-multiSelect>
 
                                 <!-- <select class="form-control" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" id="opTeamName">
                                     <option value="select">Select</option>

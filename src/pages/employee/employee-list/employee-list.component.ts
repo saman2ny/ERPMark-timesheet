@@ -46,6 +46,7 @@ export class EmployeeListComponent implements OnInit {
 	roleList: any = [];
 	branchList: any =[]
 	designationList: any []
+	teamList: any [];
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService, private CountriesService:CountriesService
@@ -75,14 +76,17 @@ export class EmployeeListComponent implements OnInit {
 				this.departmentList = succ.department
 				this.employeer.opEmpDepart = this.departmentList[0]
 
-				this.roleList = succ.roles
+				this.roleList = succ.role
 				this.employeer.opRole = this.roleList[0]
 
-				this.branchList = succ.branchlist
+				this.branchList = succ.branch
 				this.employeer.opSelectBranch = this.branchList[0]
 
 				this.designationList = succ.designation
 				this.employeer.opEmpDesg = this.designationList[0]
+
+				this.teamList = succ.team
+				this.employeer.opTeamName = this.teamList[0]
 				
 			}
 			else {
@@ -167,15 +171,17 @@ export class EmployeeListComponent implements OnInit {
 			this.employeer.attachmentFile = result;
 			this.employeer.attach = file.name;
 			this.employeer.attachmentFileName = file.name;
+			this.employeer.opEmpImg = this.employeer.attachmentFile
+
 	
 		  })
 	
-		  setTimeout(() => {
-			this.employeer.opEmpImg = this.employeer.attachmentFile
-		  console.log(this.employeer.attachmentFile, "this.employeer.attachmentFile")
-		  console.log(this.employeer.opEmpImg, "this.employeer.attach")
-		  console.log(this.employeer.attachmentFileName, "this.employeer.attachmentFileName")
-		}, 2000);
+		//   setTimeout(() => {
+		// 	this.employeer.opEmpImg = this.employeer.attachmentFile
+		//   console.log(this.employeer.attachmentFile, "this.employeer.attachmentFile")
+		//   console.log(this.employeer.opEmpImg, "this.employeer.attach")
+		//   console.log(this.employeer.attachmentFileName, "this.employeer.attachmentFileName")
+		// }, 2000);
 
 		}
 	}
@@ -221,6 +227,7 @@ export class EmployeeListComponent implements OnInit {
 				this.employeer.opCompanyId = "CMP10001";
 
 				this.employeerList = succ.data
+				this.employeer.opEmployeeId = succ.empid['maxCEId']
 
 			}
 			else {
