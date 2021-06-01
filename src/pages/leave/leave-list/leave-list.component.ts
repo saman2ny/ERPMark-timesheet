@@ -63,17 +63,49 @@ export class LeaveListComponent implements OnInit {
 
 
 		this.Leaveform = this.formBuilder.group({
-			// opCompanyId: ['', Validators.required],
-			// opEmployeeId: ['', Validators.required],
-			opleavetype: ['', Validators.required]
+			opCompanyId: ['', Validators.required],
+			opEmployeeId: ['', Validators.required],
+			opleavetype: ['', Validators.required],
+      opDatestart: ['', Validators.required],
+      opDateEnd: ['', Validators.required],
+      opNodays: ['', Validators.required],
+      opReason: ['', Validators.required]
 
-
-			// opUserName: ['', Validators.required],
 		});
+  }
+
+
+  
+	goLeaveinsert() {
+
+		if (this.Leaveform.invalid) {
+			this.Leaveform.markAllAsTouched();
+			return;
+		} else {
+			this.common.hideLoading()
+			console.log(this.employeer, "employeer")
 
 
 
-  }goLeaveinsert
+			this.apiService.post(this.constantsService.insertleave, this.employeer).subscribe((succ: any) => {
+				if (succ.status === 200) {
+					this.common.hideLoading()
+					this.common.showSuccessMessage(succ.message);
+				}
+				else {
+					this.common.hideLoading()
+					this.common.showErrorMessage(succ.message)
+	
+				}
+	
+			}, err => {
+				this.common.hideLoading()
+				this.common.showErrorMessage(err.message)
+	
+			})
+
+		}
+	}
 
   leaveList(){
     this.common.showLoading()
