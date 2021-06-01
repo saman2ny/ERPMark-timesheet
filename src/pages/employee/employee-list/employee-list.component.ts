@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
@@ -48,6 +48,9 @@ export class EmployeeListComponent implements OnInit {
 	designationList: any []
 	teamList: any [];
 	title: any = {};
+
+	isUniqueUserId: boolean = true;
+
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService, private CountriesService:CountriesService
@@ -113,6 +116,7 @@ export class EmployeeListComponent implements OnInit {
 	 }
 
 
+
 	ngOnInit(): void {
 		this.employeeList()
 		datatblesandIts()
@@ -173,6 +177,44 @@ export class EmployeeListComponent implements OnInit {
 			keyboard: false
 		})
 	}
+
+	
+	// already exists email
+	focusOutEmailId($event) {
+	 
+		const userId = $event.target.value
+    if (!userId) {
+      return;
+
+    }
+    
+    this.apiService.post(this.constantsService.validateUserId, { opUserId: userId, "isEdit":  "false" }).subscribe((succ: any) => {
+      
+      
+      if (succ.code == 200) {
+        this.isUniqueUserId = true;
+        this.EmployeeeForm.get('opEmailId').setValidators([this.validateUserIdUnique()])
+        this.EmployeeeForm.get('opEmailId').updateValueAndValidity();
+      } else {
+        let val = this.validateUserIdUnique;
+        
+        this.isUniqueUserId = false;
+        this.EmployeeeForm.get('opEmailId').setValidators([this.validateUserIdUnique()])
+        this.EmployeeeForm.get('opEmailId').updateValueAndValidity();
+      }
+    });
+
+	}
+
+	private validateUserIdUnique(): ValidatorFn {
+		return (control: AbstractControl): { [key: string]: any } => {
+		  if (this.isUniqueUserId != false) {
+			return null
+		  }
+		  return { 'alreadyExist': true }
+		}
+	  }
+	// image base64
 	getEmployeerImg(event){
 		var file: File = event.target.files[0];
 		var fileFormat = file.name.substring(file.name.lastIndexOf("."), file.name.length);
