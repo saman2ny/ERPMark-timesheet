@@ -43,8 +43,8 @@ export class BasicAuthInterceptor implements HttpInterceptor {
         }else{
             let user = this.common.getUser()
             request.body.firstname = user.data[0].firstname
-            request.body.select = user.data[0].select
-            request.body.opEmailId = user.data[0].emailaddress
+            request.body.role = user.data[0].role
+            request.body.EmailId = user.data[0].emailaddress
         }
        
 

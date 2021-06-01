@@ -26,7 +26,7 @@ export class EmployeeListComponent implements OnInit {
 	EmployeeeForm: FormGroup;
 	employeer: any = {}
 	reqObj: any = {
-		"moduleName": "employeer"
+		"moduleName": "employee"
 	}
 	employeerList: any = []
 	allBanks: any =[]
@@ -59,61 +59,66 @@ export class EmployeeListComponent implements OnInit {
 		this.employeer.opCompanyId = this.user.data[0]['companyid'];
 		this.employeer.opEmployeeId = this.user.data[0]['employeeid'];
 
-		// telephone
-		this.allCounties = this.countryService.allCountries;
-		this.CountryISO = this.countryService.getcountryCode();
-		// Banks
-		this.allBanks = this.BankService.getcodeBank();
-		this.employeer.opBankName = this.allBanks[0];
-		// country
-		this.allCountries = this.CountriesService.countries;
-		this.employeer.opCountry = this.allCountries[0];
-		// Department
-		this.apiService.post(this.constantsService.rolesList, {}).subscribe((succ: any) => {
-			console.log(succ.department, "department")
-			if (succ.status === 200) {
-				this.common.hideLoading()
-
-
-				this.departmentList = succ.department
-				this.employeer.opEmpDepart = this.departmentList[0]
-
-				this.roleList = succ.role
-				this.employeer.opRole = this.roleList[0]
-
-				this.branchList = succ.branch
-				this.employeer.opSelectBranch = this.branchList[0]
-
-				this.designationList = succ.designation
-				this.employeer.opEmpDesg = this.designationList[0]
-
-				this.teamList = succ.team
-				this.employeer.opTeamName = this.teamList[0]
-				
-			}
-			else {
-				this.common.hideLoading()
-				this.common.showErrorMessage(succ.message)
-
-			}
-
-		}, err => {
-			this.common.hideLoading()
-			this.common.showErrorMessage(err.message)
-
-		})
-
-
-
-
-
-		// console.log(this.allBanks)
-
-
+		this.plugins()
+	
 
 	 }
 
 
+	 plugins(){
+	// telephone
+	this.allCounties = this.countryService.allCountries;
+	this.CountryISO = this.countryService.getcountryCode();
+	// Banks
+	this.allBanks = this.BankService.getcodeBank();
+	this.employeer.opBankName = this.allBanks[0];
+	// country
+	this.allCountries = this.CountriesService.countries;
+	this.employeer.opCountry = this.allCountries[0];
+	// Department
+	this.apiService.post(this.constantsService.rolesList, {}).subscribe((succ: any) => {
+		console.log(succ.department, "department")
+		if (succ.status === 200) {
+			this.common.hideLoading()
+
+
+			this.departmentList = succ.department
+			this.employeer.opEmpDepart = this.departmentList[0]
+
+			this.roleList = succ.role
+			this.employeer.opRole = this.roleList[0]
+
+			this.branchList = succ.branch
+			this.employeer.opSelectBranch = this.branchList[0]
+
+			this.designationList = succ.designation
+			this.employeer.opEmpDesg = this.designationList[0]
+
+			this.teamList = succ.team
+			this.employeer.opTeamName = this.teamList[0]
+			
+		}
+		else {
+			this.common.hideLoading()
+			this.common.showErrorMessage(succ.message)
+
+		}
+
+	}, err => {
+		this.common.hideLoading()
+		this.common.showErrorMessage(err.message)
+
+	})
+
+
+
+
+
+	// console.log(this.allBanks)
+
+
+
+	 }
 
 	ngOnInit(): void {
 		this.employeeList()
@@ -123,35 +128,35 @@ export class EmployeeListComponent implements OnInit {
 
 
 		this.EmployeeeForm = this.formBuilder.group({
-			opCompanyId: ['', Validators.required],
-			opEmployeeId: ['', Validators.required],
+			opCompanyId: [''],
+			opEmployeeId: [''],
 			opRole: [''],
 			opSelectBranch: [''],
 			opFirstName: ['', Validators.compose([Validators.required])],
 			opLastName: [''],
-			opDateOfJoin: ['', Validators.required],
-			opEmpDesg: ['', Validators.required],
-			opGender: ['', Validators.required],
-			opDateOfBirth: ['', Validators.required],
-			opAddress: ['', Validators.required],
-			opCountry: ['', Validators.required],
-			opPhoneId: ['', Validators.required],
+			opDateOfJoin: [''],
+			opEmpDesg: [''],
+			opGender: [''],
+			opDateOfBirth: [''],
+			opAddress: [''],
+			opCountry: [''],
+			opPhoneId: [''],
 			opEmailId: ['', Validators.required],
-			opPassword: ['', Validators.required],
-			opConfirmPassword: ['', Validators.required],
-			opPanNo: ['', Validators.required],
+			opPassword: [''],
+			opConfirmPassword: [''],
+			opPanNo: [''],
 			opAadharNo: [''],
-			opBankName: ['', Validators.required],
+			opBankName: [''],
 			opIFSC: [''],
-			opAcctNo: ['', Validators.required],
-			opPassport: ['', Validators.required],
-			opTeamName: ['', Validators.required],
-			// opTeamId: ['', Validators.required],
-			opEmpDepart: ['', Validators.required],
-			opEmpImg: ['', Validators.required]
+			opAcctNo: [''],
+			opPassport: [''],
+			opTeamName: [''],
+			// opTeamId: [''],
+			opEmpDepart: [''],
+			opEmpImg: ['']
 
 
-			// opUserName: ['', Validators.required],
+			// opUserName: [''],
 		});
 
 	}
@@ -166,6 +171,12 @@ export class EmployeeListComponent implements OnInit {
 		})
 	}
 
+
+	closeModal(){
+				$("#add_client").modal('hide');
+				this.EmployeeeForm.reset();
+
+	}
 	editModal(employeee){
 		this.title ="Edit"
 		this.employeer = employeee
@@ -181,8 +192,7 @@ export class EmployeeListComponent implements OnInit {
 	 
 		const userId = $event.target.value
     if (!userId) {
-      return ;
-
+      return { 'required': true }
     }
     
     this.apiService.post(this.constantsService.validateEmail, { emailid: userId }).subscribe((succ: any) => {
@@ -240,6 +250,7 @@ export class EmployeeListComponent implements OnInit {
 
 		if (this.EmployeeeForm.invalid) {
 			this.EmployeeeForm.markAllAsTouched();
+			this.plugins()
 			return;
 		} else {
 			this.common.hideLoading()
@@ -249,6 +260,10 @@ export class EmployeeListComponent implements OnInit {
 			// Joining Mobile with dial code
 			var opMobileNo = this.EmployeeeForm.get('opPhoneId').value
 			this.employeer.opPhoneId = this.common.convertCompleteCountryCode(opMobileNo)
+			// opBankName
+    		this.employeer.opBankName = this.employeer.opBankName.keys;
+			// country
+    		this.employeer.opCountry = this.employeer.opCountry.code;
 			// roles
     		this.employeer.opRole = this.employeer.opRole.roleId;
 			// Branch
