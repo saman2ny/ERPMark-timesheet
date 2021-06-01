@@ -12,6 +12,7 @@ export class ConstantsService {
    employeerList= "Branch/employeerList"
    rolesList= "Branch/allselectlist"
    insertemployee= "Branch/insertemployee"
+   validateEmail = "Branch/email_exists"
 
 
 // apis

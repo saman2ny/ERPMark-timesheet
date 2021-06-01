@@ -251,7 +251,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                <input class="form-control floating" type="email" [(ngModel)]="employeer.opEmailId"  (change)="focusOutEmailId($event)" formControlName="opEmailId" id="opEmailId">
+                                <input class="form-control floating" type="email" [(ngModel)]="employeer.opEmailId"  (focusout)="focusOutEmailId($event)" formControlName="opEmailId" id="opEmailId">
                                 <div class="error" *ngIf="EmployeeeForm.controls['opEmailId'].hasError('required') && EmployeeeForm.controls['opEmailId'].touched">
                                     Email Id is Required</div>
                                     <div class="error" *ngIf="EmployeeeForm.controls['opEmailId'].hasError('alreadyExist') && EmployeeeForm.controls['opEmailId'].touched">
@@ -372,7 +372,7 @@
                             <div class="box">
                                     <!-- {{employeer.opEmpImg}} -->
                             <img [src]="employeer.opEmpImg"
-                            class="img-clup"  formControlName="opEmpImgDisplay" #opEmpImgDisplay
+                            class="img-clup"  
                             onerror="this.src='assets/img/portfolio-image14.jpg';"
                             style="width:100% !important;" />
                             </div>

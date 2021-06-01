@@ -148,7 +148,6 @@ export class EmployeeListComponent implements OnInit {
 			opTeamName: ['', Validators.required],
 			// opTeamId: ['', Validators.required],
 			opEmpDepart: ['', Validators.required],
-			opEmpImgDisplay: [''],
 			opEmpImg: ['', Validators.required]
 
 
@@ -182,20 +181,18 @@ export class EmployeeListComponent implements OnInit {
 	 
 		const userId = $event.target.value
     if (!userId) {
-      return;
+      return ;
 
     }
     
-    this.apiService.post(this.constantsService.validateUserId, { opUserId: userId, "isEdit":  "false" }).subscribe((succ: any) => {
+    this.apiService.post(this.constantsService.validateEmail, { emailid: userId }).subscribe((succ: any) => {
       
       
       if (succ.code == 200) {
         this.isUniqueUserId = true;
         this.EmployeeeForm.get('opEmailId').setValidators([this.validateUserIdUnique()])
         this.EmployeeeForm.get('opEmailId').updateValueAndValidity();
-      } else {
-        let val = this.validateUserIdUnique;
-        
+      } else {        
         this.isUniqueUserId = false;
         this.EmployeeeForm.get('opEmailId').setValidators([this.validateUserIdUnique()])
         this.EmployeeeForm.get('opEmailId').updateValueAndValidity();
@@ -219,7 +216,7 @@ export class EmployeeListComponent implements OnInit {
 	
 		if (event.target.files.length > 0) {
 		  const file = event.target.files[0];
-		  console.log(file, "file")
+		//   console.log(file, "file")
 	
 		  this.common.convertBase64(file, (result) => {
 			this.employeer.attachmentFile = result;
