@@ -267,7 +267,7 @@ export class EmployeeListComponent implements OnInit {
 			// roles
     		this.employeer.opRole = this.employeer.opRole.roleId;
 			// Branch
-    		this.employeer.opSelectBranch = this.employeer.opSelectBranch.branchid;
+    		this.employeer.opSelectBranch = this.employeer.opSelectBranch.branchId;
 			// Desigination
     		this.employeer.opEmpDesg = this.employeer.opEmpDesg.designationId;
 			// Department
@@ -276,9 +276,11 @@ export class EmployeeListComponent implements OnInit {
 			this.employeer.opTeamName = this.employeer.opTeamName.teamId;
 
 			this.apiService.post(this.constantsService.insertemployee, this.employeer).subscribe((succ: any) => {
-				if (succ.status === 200) {
+				if (succ.code === 200) {
 					this.common.hideLoading()
 					this.common.showSuccessMessage(succ.message);
+					this.closeModal()
+					this.ngOnInit()
 				}
 				else {
 					this.common.hideLoading()
