@@ -6,13 +6,15 @@ import { TemplateFilterPipe } from 'src/pipes/template-filter.pipe';
 import { CustomeTableFilterPipe } from 'src/pipes/custome-table-filter.pipe';
 // import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { SafePipe } from 'src/pipes/safe.pipe';
+import { ImagePipe } from 'src/pipes/image.pipe';
 
 
 const PIPES = [
   ShowDatePipe,
   TemplateFilterPipe,
   CustomeTableFilterPipe,
-  SafePipe
+  SafePipe,
+  ImagePipe
 ]; 
 
 

@@ -6,6 +6,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { SharedModule } from 'src/shared/shared.module';
 
 
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
@@ -38,7 +39,8 @@ const routes: Routes = [
     DropdownModule,
     AutoCompleteModule,
     MultiSelectModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    SharedModule
   ],
   declarations: [EmployeeListComponent],
 

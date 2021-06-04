@@ -63,7 +63,13 @@
         <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" *ngFor="let employeee of employeerList" >
             <div class="profile-widget">
                 <div class="profile-img">
-                    <a href="client-profile.html" class="avatar"><img alt="" src="../assets/img/profiles/avatar-21.jpg"></a>
+                    <a href="client-profile.html" class="avatar">
+                        <img [src]="employeee.empimg | image"
+                        class="img-clup"  
+                        onerror="this.src='assets/img/portfolio-image14.jpg';"
+                        style="width:100% !important;" />
+                        <!-- <img alt="" src="../assets/img/profiles/avatar-21.jpg"> -->
+                    </a>
                 </div>
                 <div class="dropdown profile-action">
                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -143,7 +149,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Branch <span class="text-danger">*</span></label>
-                                <p-dropdown optionLabel="branch"  optionValue="branchId" [options]="branchList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opSelectBranch" formControlName="opSelectBranch" [filter]="true"></p-dropdown>
+                                <p-dropdown optionLabel="branch"  optionValue="branch" [options]="branchList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opSelectBranch" formControlName="opSelectBranch" [filter]="true"></p-dropdown>
 <!-- 
                                 <select class="form-control" [(ngModel)]="employeer.opSelectBranch" formControlName="opSelectBranch" id="opSelectBranch">
                                     <option value="Select">Select</option>
@@ -170,7 +176,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Employeer Designation</label>
-                                <p-dropdown optionLabel="designation"  optionValue="designationId" [options]="designationList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opEmpDesg" formControlName="opEmpDesg" [filter]="true"></p-dropdown>
+                                <p-dropdown optionLabel="designation"  optionValue="designation" [options]="designationList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opEmpDesg" formControlName="opEmpDesg" [filter]="true"></p-dropdown>
 
                                 <!-- <select class="form-control" [(ngModel)]="employeer.opEmpDesg" formControlName="opEmpDesg" id="opEmpDesg">
                                     <option value="Designation">Designation</option>
@@ -251,7 +257,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                <input class="form-control floating" type="email" [(ngModel)]="employeer.opEmailId"  (focusout)="focusOutEmailId($event)" formControlName="opEmailId" id="opEmailId">
+                                <input class="form-control floating" type="text" [(ngModel)]="employeer.opEmailId"  (focusout)="focusOutEmailId($event)" formControlName="opEmailId" id="opEmailId">
                                 <div class="error" *ngIf="EmployeeeForm.controls['opEmailId'].hasError('required') && EmployeeeForm.controls['opEmailId'].touched">
                                     Email Id is Required</div>
                                     <div class="error" *ngIf="EmployeeeForm.controls['opEmailId'].hasError('alreadyExist') && EmployeeeForm.controls['opEmailId'].touched">
@@ -261,15 +267,33 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Password</label>
-                                <input class="form-control" type="password" [(ngModel)]="employeer.opPassword"  formControlName="opPassword" id="opPassword">
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opPassword"  pattern="(?=.*\d)(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}" formControlName="opPassword" id="opPassword">
+                               
                                 <div class="error" *ngIf="EmployeeeForm.controls['opPassword'].hasError('required') && EmployeeeForm.controls['opPassword'].touched">
                                     Password is Required</div>
+
+                                    <div class="error"
+                                    *ngIf="EmployeeeForm.get('opPassword').hasError('minlength') && EmployeeeForm.get('opPassword').touched">
+                                    Please enter a new password at least 8 characters.
+                            
+                                  </div>
+                                  <div class="error"
+                                    *ngIf="EmployeeeForm.get('opPassword').hasError('maxlength') && EmployeeeForm.get('opPassword').touched">
+                                    Please enter a new password no more than 16 characters.
+                            
+                                  </div>
+                                  <div class="error"
+                                    *ngIf="EmployeeeForm.get('opPassword').hasError('pattern') && EmployeeeForm.get('opPassword').touched">
+                                    Must contain at least one number and one uppercase and special character
+                            
+                                  </div>
+
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Confirm Password</label>
-                                <input class="form-control" type="password" [(ngModel)]="employeer.opConfirmPassword" pattern="{{ employeer.opPassword }}" formControlName="opConfirmPassword" id="opConfirmPassword">
+                                <input class="form-control" type="text" [(ngModel)]="employeer.opConfirmPassword" pattern="{{ employeer.opPassword }}" formControlName="opConfirmPassword" id="opConfirmPassword">
                                 <div class="error" *ngIf="EmployeeeForm.controls['opConfirmPassword'].hasError('required') && EmployeeeForm.controls['opConfirmPassword'].touched">
                                    Confirm Password is Required</div>
                                    <div class="error" *ngIf="EmployeeeForm.get('opConfirmPassword').hasError('pattern')">
@@ -344,7 +368,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Team name </label>
-                                <p-multiSelect  optionLabel="teamname"  optionValue="teamId" [options]="teamList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" [filter]="true"></p-multiSelect>
+                                <p-multiSelect  optionLabel="teamname"   [options]="teamList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" [filter]="true">
+                                    <ng-template let-teams pTemplate="selectedItems">
+                                        <span *ngFor="let teams of teams">{{teams.teamname}}</span>
+                                    </ng-template>
+
+                                </p-multiSelect>
 
                                 <!-- <select class="form-control" [(ngModel)]="employeer.opTeamName" formControlName="opTeamName" id="opTeamName">
                                     <option value="select">Select</option>
@@ -361,7 +390,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Employeer Department</label>
-                                <p-dropdown optionLabel="department"  optionValue="departmentId" [options]="departmentList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opEmpDepart" formControlName="opEmpDepart" [filter]="true"></p-dropdown>
+                                <p-dropdown optionLabel="department"  optionValue="department" [options]="departmentList" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opEmpDepart" formControlName="opEmpDepart" [filter]="true"></p-dropdown>
                             </div>
                             <div class="error" *ngIf="EmployeeeForm.controls['opEmpDepart'].hasError('required') && EmployeeeForm.controls['opEmpDepart'].touched">
                                 Department is Required</div>

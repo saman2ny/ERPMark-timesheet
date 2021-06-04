@@ -54,11 +54,6 @@ export class EmployeeListComponent implements OnInit {
 		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService, private CountriesService:CountriesService
 	) {
 
-		this.user = this.common.getUser();
-		this.menuType = this.user.data[0]['select'];
-		this.employeer.opCompanyId = this.user.data[0]['companyid'];
-		this.employeer.opEmployeeId = this.user.data[0]['employeeid'];
-
 		this.plugins()
 	
 
@@ -66,6 +61,12 @@ export class EmployeeListComponent implements OnInit {
 
 
 	 plugins(){
+		 
+		this.user = this.common.getUser();
+		this.menuType = this.user.data[0]['select'];
+		this.employeer.opCompanyId = this.user.data[0]['companyid'];
+		this.employeer.opEmployeeId = this.user.data[0]['employeeid'];
+
 	// telephone
 	this.allCounties = this.countryService.allCountries;
 	this.CountryISO = this.countryService.getcountryCode();
@@ -95,7 +96,7 @@ export class EmployeeListComponent implements OnInit {
 			this.employeer.opEmpDesg = this.designationList[0]
 
 			this.teamList = succ.team
-			this.employeer.opTeamName = this.teamList[0]
+			// this.employeer.opTeamName = this.teamList[0]
 			
 		}
 		else {
@@ -142,15 +143,15 @@ export class EmployeeListComponent implements OnInit {
 			opCountry: [''],
 			opPhoneId: [''],
 			opEmailId: ['', Validators.required],
-			opPassword: [''],
-			opConfirmPassword: [''],
+			opPassword: ['',Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(15)])],
+			opConfirmPassword: ['',Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(15)])],
 			opPanNo: [''],
 			opAadharNo: [''],
 			opBankName: [''],
 			opIFSC: [''],
 			opAcctNo: [''],
 			opPassport: [''],
-			opTeamName: [''],
+			opTeamName: ['', Validators.required],
 			// opTeamId: [''],
 			opEmpDepart: [''],
 			opEmpImg: ['']
@@ -163,7 +164,7 @@ export class EmployeeListComponent implements OnInit {
 
 	openModal(){
 		this.title ="Add"
-
+this.plugins()
 		// $("#add_client").modal('show');
 		$('#add_client').modal({
 			backdrop: 'static',
@@ -200,12 +201,12 @@ export class EmployeeListComponent implements OnInit {
       
       if (succ.code == 200) {
         this.isUniqueUserId = true;
-        this.EmployeeeForm.get('opEmailId').setValidators([this.validateUserIdUnique()])
-        this.EmployeeeForm.get('opEmailId').updateValueAndValidity();
+        this.EmployeeeForm.get('empEmailId').setValidators([this.validateUserIdUnique()])
+        this.EmployeeeForm.get('empEmailId').updateValueAndValidity();
       } else {        
         this.isUniqueUserId = false;
-        this.EmployeeeForm.get('opEmailId').setValidators([this.validateUserIdUnique()])
-        this.EmployeeeForm.get('opEmailId').updateValueAndValidity();
+        this.EmployeeeForm.get('empEmailId').setValidators([this.validateUserIdUnique()])
+        this.EmployeeeForm.get('empEmailId').updateValueAndValidity();
       }
     });
 
@@ -267,13 +268,13 @@ export class EmployeeListComponent implements OnInit {
 			// roles
     		this.employeer.opRole = this.employeer.opRole.role;
 			// Branch
-    		this.employeer.opSelectBranch = this.employeer.opSelectBranch.branchId;
+    		this.employeer.opSelectBranch = this.employeer.opSelectBranch.branch;
 			// Desigination
-    		this.employeer.opEmpDesg = this.employeer.opEmpDesg.designationId;
+    		this.employeer.opEmpDesg = this.employeer.opEmpDesg.designation;
 			// Department
-			this.employeer.opEmpDepart = this.employeer.opEmpDepart.departmentId;
+			this.employeer.opEmpDepart = this.employeer.opEmpDepart.department;
 			// Teams
-			this.employeer.opTeamName = this.employeer.opTeamName.teamId;
+			this.employeer.opTeamName = this.employeer.opTeamName.teamname;
 
 			this.apiService.post(this.constantsService.insertemployee, this.employeer).subscribe((succ: any) => {
 				if (succ.code === 200) {
