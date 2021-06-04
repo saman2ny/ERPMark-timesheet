@@ -265,7 +265,7 @@ export class EmployeeListComponent implements OnInit {
 			// country
     		this.employeer.opCountry = this.employeer.opCountry.code;
 			// roles
-    		this.employeer.opRole = this.employeer.opRole.roleId;
+    		this.employeer.opRole = this.employeer.opRole.role;
 			// Branch
     		this.employeer.opSelectBranch = this.employeer.opSelectBranch.branchId;
 			// Desigination
