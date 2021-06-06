@@ -80,71 +80,88 @@
     
 
         	<!-- Add/ Edit Today Work Modal -->
-				<div id="todaywork" class="modal custom-modal fade" role="dialog">
+				<div id="addtimesheet" class="modal custom-modal fade" role="dialog">
 					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title">{{getNameForModel}}</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<h5 class="modal-title">{{tittle}} Time sheet</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="closeModal()">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
 							<div class="modal-body">
                                 <form [formGroup]="TimesheetForm">
-									<div class="row">
-										<div class="form-group col-sm-6">
-											<label>Project <span class="text-danger">*</span></label>
-											<select class="select" [(ngModel)]="timesheetModel.opProjectName"  formControlName="opProjectName" id="opProjectName">
-												<option value="select" selected disabled >Select</option>
-												<option *ngFor="let projects of listMainProjects" >{{projects.projectname}}</option>
-											</select>
-                                            <div class="error" *ngIf="TimesheetForm.controls['opProjectName'].hasError('required') && TimesheetForm.controls['opProjectName'].touched">
-                                                Project is Required</div>
-										</div>
-									</div>
-									<!-- <div class="row">
-										<div class="form-group col-sm-4">
-											<label>Deadline <span class="text-danger">*</span></label>
-											<div class="cal-icon">
-												<input class="form-control" type="text" value="5 May 2019" readonly>
-											</div>
-										</div>
-										<div class="form-group col-sm-4">
-											<label>Total Hours <span class="text-danger">*</span></label>
-											<input class="form-control" type="text" value="100" readonly>
-										</div>
-										<div class="form-group col-sm-4">
-											<label>Remaining Hours <span class="text-danger">*</span></label>
-											<input class="form-control" type="text" value="60" readonly>
-										</div>
-									</div> -->
+									
+
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
+                                        <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
+                                        <div  class="error" *ngIf="TimesheetForm.controls['opCompanyId'].hasError('required') && TimesheetForm.controls['opCompanyId'].touched">
+                                            Company ID is Required</div>
+                                                </div>
+            
+                                        
+            
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
+                                                    <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
+                                                    <div  class="error" *ngIf="TimesheetForm.controls['opEmployeeId'].hasError('required') && TimesheetForm.controls['opEmployeeId'].touched">
+                                                        Employee ID is Required</div>
+                                                            </div>
+
+                        
+            
+            
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Employee Name<span class="text-danger">*</span></label>
+                                                    <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opFirstname"  formControlName="opFirstname" id="opFirstname">
+                                                    <div  class="error" *ngIf="TimesheetForm.controls['opFirstname'].hasError('required') && TimesheetForm.controls['opFirstname'].touched">
+                                                        Employee Name is Required</div>
+                                                </div>
+                        
 								
-                                    <div class="row">
-										<div class="form-group col-sm-6">
-											<label>Date <span class="text-danger">*</span></label>
-											<div class="cal-icon">
-												<input class="form-control datetimepicker" type="text" [(ngModel)]="timesheetModel.opDate"  formControlName="opDate" id="opDate">
-											</div>
-                                            <div class="error" *ngIf="TimesheetForm.controls['opDate'].hasError('required') && TimesheetForm.controls['opDate'].touched">
-                                                Date is Required</div>
-										</div>
-										<div class="form-group col-sm-6">
-											<label>Hours <span class="text-danger">*</span></label>
-											<input class="form-control" type="text" [(ngModel)]="timesheetModel.opHours"  formControlName="opHours" id="opHours">
-                                            <div class="error" *ngIf="TimesheetForm.controls['opHours'].hasError('required') && TimesheetForm.controls['opHours'].touched">
-                                                Hours is Required</div>
-										</div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
+                                        <p-dropdown optionLabel="projectname"  optionValue="projectname" [options]="projectlist" [virtualScroll]="true" itemSize="30" [(ngModel)]="timesheetObj.opProjectname" formControlName="opProjectname" id="opProjectname" [filter]="true"></p-dropdown>
+                                        <div class="error" *ngIf="TimesheetForm.controls['opProjectname'].hasError('required') && TimesheetForm.controls['opProjectname'].touched">
+                                            Project Name  is Required</div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Project Hours<span class="text-danger">*</span></label>
+                                        <input class="form-control floating" type="text" [(ngModel)]="timesheetObj.opProjecthours"  formControlName="opProjecthours" id="opProjecthours">
+                                        <div  class="error" *ngIf="TimesheetForm.controls['opProjecthours'].hasError('required') && TimesheetForm.controls['opProjecthours'].touched">
+                                            Project Hours is Required</div>
+                                    </div>
+            
+
+
+                                    <div class="form-group">
+										<label class="col-form-label">Description <span class="text-danger">*</span></label>
+										<textarea class="form-control floating" type="text" [(ngModel)]="timesheetObj.opDescription"  formControlName="opDescription" id="opDescription" rows="3"></textarea>
+										<div class="error" *ngIf="TimesheetForm.controls['opDescription'].hasError('required') && TimesheetForm.controls['opDescription'].touched">
+											Description is Required</div>
 									</div>
-									<div class="form-group">
-										<label>Description <span class="text-danger">*</span></label>
-										<textarea rows="4" class="form-control" [(ngModel)]="timesheetModel.opDesc"  formControlName="opDesc" id="opDesc"></textarea>
-                                        <div class="error" *ngIf="TimesheetForm.controls['opDesc'].hasError('required') && TimesheetForm.controls['opDesc'].touched">
-                                            Hours is Required</div>
-									</div>
-									<div class="submit-section">
-										<button class="btn btn-primary submit-btn" (click)="Save()" *ngIf="Edit">Update</button>
-										<button class="btn btn-primary submit-btn" (click)="Save()" *ngIf="!Edit">Save</button>
-									</div>
+
+
+
+
+
+
+                                    <div class="submit-section">
+                                        <button class="btn btn-primary submit-btn" (click)="Timesheetinsert()">Submit</button>
+                                    </div>
+                
+
+
+
+
+
+								
 								</form>
 							</div>
 						</div>

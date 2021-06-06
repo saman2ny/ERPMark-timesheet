@@ -15,7 +15,8 @@ export class ConstantsService {
    validateEmail = "Branch/email_exists"
 // Leaves
    insertleave = "Branch/insertleave"
-
+   insertresignation = "Branch/insertresignationss"
+   inserttimesheetdata= "Branch/inserttimesheetlist"
    
 
 // apis
