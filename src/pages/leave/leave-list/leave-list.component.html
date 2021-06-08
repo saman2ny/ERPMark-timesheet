@@ -178,9 +178,19 @@
                         <div class="form-group">
                             <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
                             <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
-                            <div  class="error" *ngIf="EmployeeeForm.controls['opCompanyId'].hasError('required') && EmployeeeForm.controls['opCompanyId'].touched">
+                            <div  class="error" *ngIf="Leaveform.controls['opCompanyId'].hasError('required') && Leaveform.controls['opCompanyId'].touched">
                                 Company ID is Required</div>
                         </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
+                            <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
+                            <div  class="error" *ngIf="Leaveform.controls['opEmployeeId'].hasError('required') && Leaveform.controls['opEmployeeId'].touched">
+                                Company ID is Required</div>
+                        </div>
+
 
                             <div class="form-group">
                                 <label class="col-form-label">Leave Type  <span class="text-danger">*</span></label>
@@ -190,44 +200,47 @@
                                     Leave Type is Required</div>
                             </div>
 
-                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Date of join <span class="text-danger">*</span></label>
-                                    <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="opDate"
-                                     [(ngModel)]="employeer.opDate" [owlDateTimeTrigger]="dt1" placeholder="Date">
+                                    <label class="col-form-label">Start Date  <span class="text-danger">*</span></label>
+                                    <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="opDatestart"
+                                     [(ngModel)]="employeer.opDatestart" [owlDateTimeTrigger]="dt1" placeholder="Date">
                                      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
     
-                                    <div class="error" *ngIf="Leaveform.controls['opDate'].hasError('required') && Leaveform.controls['opDate'].touched">
+                                    <div class="error" *ngIf="Leaveform.controls['opDatestart'].hasError('required') && Leaveform.controls['opDatestart'].touched">
                                         Date of join is  Required</div>
                                 </div>
-                            </div>
 
+                                <div class="form-group">
+                                    <label class="col-form-label">End Date  <span class="text-danger">*</span></label>
+                                    <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="opDateEnd"
+                                     [(ngModel)]="employeer.opDateEnd" [owlDateTimeTrigger]="dt1" placeholder="Date">
+                                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+    
+                                    <div class="error" *ngIf="Leaveform.controls['opDateEnd'].hasError('required') && Leaveform.controls['opDateEnd'].touched">
+                                        Date of join is  Required</div>
+                                </div>
 
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Number of days<span class="text-danger">*</span></label>
                                     <input class="form-control" [(ngModel)]="employeer.opNodays" type="text" formControlName="opNodays" id="opNodays">
-                                    <div class="error" *ngIf="LeaveForm.controls['opNodays'].hasError('required') && LeaveForm.controls['opNodays'].touched">
+                                    <div class="error" *ngIf="Leaveform.controls['opNodays'].hasError('required') && Leaveform.controls['opNodays'].touched">
                                         First Name is Required</div>
     
                                 </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Leave Reason <span class="text-danger">*</span></label>
+                                <input class="form-control" [(ngModel)]="employeer.opReason" type="text" formControlName="opReason" id="opReason">
+                                <div class="error" *ngIf="Leaveform.controls['opReason'].hasError('required') && Leaveform.controls['opReason'].touched">
+                                    First Name is Required</div>
+
                             </div>
-                    
-                    <div class="form-group">
-                        <label>Number of days <span class="text-danger">*</span></label>
-                        <input class="form-control" readonly type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>Remaining Leaves <span class="text-danger">*</span></label>
-                        <input class="form-control" readonly value="12" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>Leave Reason <span class="text-danger">*</span></label>
-                        <textarea rows="4" class="form-control"></textarea>
-                    </div>
-                    <div class="submit-section">
+
+             
+                  
+                    <!-- <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Submit</button>
-                    </div>
+                    </div> -->
 
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn" (click)="goLeaveinsert()">Submit</button>

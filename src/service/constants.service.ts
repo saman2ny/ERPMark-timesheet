@@ -9,10 +9,12 @@ export class ConstantsService {
     login = "Branch/index";
 
    //  Employeeer all list 
-   employeerList= "Branch/employeerList"
-   rolesList= "Branch/allselectlist"
-   insertemployee= "Branch/insertemployee"
+   employeerList = "Branch/employeerList"
+   rolesList = "Branch/allselectlist"
+   insertemployee = "Branch/insertemployee"
+   insertleave = "Branch/insertleave"
 
+   
 
 // apis
 bankNamess = "razorpay/ifsc/master/src/banknames.json"
