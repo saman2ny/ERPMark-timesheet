@@ -216,7 +216,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Address <span class="text-danger">*</span></label>
-                                <textarea class="form-control floating" type="email" [(ngModel)]="employeer.opAddress"  formControlName="opAddress" id="opAddress" rows="3"></textarea>
+                                <textarea class="form-control floating" type="text" [(ngModel)]="employeer.opAddress"  formControlName="opAddress" id="opAddress" rows="3"></textarea>
                                 <div class="error" *ngIf="EmployeeeForm.controls['opAddress'].hasError('required') && EmployeeeForm.controls['opAddress'].touched">
                                     Address is Required</div>
                             </div>
@@ -251,9 +251,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                <input class="form-control floating" type="email" [(ngModel)]="employeer.opEmailId"  formControlName="opEmailId" id="opEmailId">
+                                <input class="form-control floating" type="email" [(ngModel)]="employeer.opEmailId"  (change)="focusOutEmailId($event)" formControlName="opEmailId" id="opEmailId">
                                 <div class="error" *ngIf="EmployeeeForm.controls['opEmailId'].hasError('required') && EmployeeeForm.controls['opEmailId'].touched">
                                     Email Id is Required</div>
+                                    <div class="error" *ngIf="EmployeeeForm.controls['opEmailId'].hasError('alreadyExist') && EmployeeeForm.controls['opEmailId'].touched">
+                                        Email Id already exists</div>
                             </div>
                         </div>
                         <div class="col-md-6">
