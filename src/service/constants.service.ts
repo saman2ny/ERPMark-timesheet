@@ -11,6 +11,7 @@ export class ConstantsService {
    //  Employeeer all list 
    employeerList= "Branch/employeerList"
    rolesList= "Branch/allselectlist"
+   insertemployee= "Branch/insertemployee"
 
 
 // apis

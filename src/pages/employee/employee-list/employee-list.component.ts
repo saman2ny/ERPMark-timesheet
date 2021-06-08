@@ -3,10 +3,8 @@ import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-
 import { ApiService } from 'src/service/api.service';
 import { CommonService } from 'src/service/common.service';
-
 import { ConstantsService } from 'src/service/constants.service';
 import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 import { CountryService } from 'src/service/country.service';
@@ -223,7 +221,7 @@ export class EmployeeListComponent implements OnInit {
 			// Teams
 			this.employeer.opTeamName = this.employeer.opTeamName.teamId;
 
-			this.apiService.post(this.constantsService.employeerList, this.employeer).subscribe((succ: any) => {
+			this.apiService.post(this.constantsService.insertemployee, this.employeer).subscribe((succ: any) => {
 				if (succ.status === 200) {
 					this.common.hideLoading()
 					this.common.showSuccessMessage(succ.message);

@@ -172,28 +172,47 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label>Leave Type <span class="text-danger">*</span></label>
-                        <select class="select">
-                            <option>Select Leave Type</option>
-                            <option>Casual Leave 12 Days</option>
-                            <option>Medical Leave</option>
-                            <option>Loss of Pay</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>From <span class="text-danger">*</span></label>
-                        <div class="cal-icon">
-                            <input class="form-control datetimepicker" type="text">
+                <form [formGroup]="Leaveform">
+
+
+                        <div class="form-group">
+                            <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
+                            <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
+                            <div  class="error" *ngIf="EmployeeeForm.controls['opCompanyId'].hasError('required') && EmployeeeForm.controls['opCompanyId'].touched">
+                                Company ID is Required</div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>To <span class="text-danger">*</span></label>
-                        <div class="cal-icon">
-                            <input class="form-control datetimepicker" type="text">
-                        </div>
-                    </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Leave Type  <span class="text-danger">*</span></label>
+                                <p-dropdown optionLabel="leavetype"  optionValue="leavetype" [options]="leavetype" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opleavetype" formControlName="opleavetype" [filter]="true"></p-dropdown>
+
+                                <div class="error" *ngIf="Leaveform.controls['opleavetype'].hasError('required') && Leaveform.controls['opleavetype'].touched">
+                                    Leave Type is Required</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Date of join <span class="text-danger">*</span></label>
+                                    <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="opDate"
+                                     [(ngModel)]="employeer.opDate" [owlDateTimeTrigger]="dt1" placeholder="Date">
+                                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+    
+                                    <div class="error" *ngIf="Leaveform.controls['opDate'].hasError('required') && Leaveform.controls['opDate'].touched">
+                                        Date of join is  Required</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Number of days<span class="text-danger">*</span></label>
+                                    <input class="form-control" [(ngModel)]="employeer.opNodays" type="text" formControlName="opNodays" id="opNodays">
+                                    <div class="error" *ngIf="LeaveForm.controls['opNodays'].hasError('required') && LeaveForm.controls['opNodays'].touched">
+                                        First Name is Required</div>
+    
+                                </div>
+                            </div>
+                    
                     <div class="form-group">
                         <label>Number of days <span class="text-danger">*</span></label>
                         <input class="form-control" readonly type="text">
@@ -209,6 +228,11 @@
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Submit</button>
                     </div>
+
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="goLeaveinsert()">Submit</button>
+                    </div>
+
                 </form>
             </div>
         </div>
