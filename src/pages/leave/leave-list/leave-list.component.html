@@ -6,12 +6,12 @@
             <div class="col">
                 <h3 class="page-title">Leaves</h3>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Dashboard</a></li>
                     <li class="breadcrumb-item active">Leaves</li>
                 </ul>
             </div>
             <div class="col-auto float-right ml-auto">
-                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_leave"><i class="fa fa-plus"></i> Add Leave</a>
+                <a href="#" class="btn add-btn" data-toggle="modal" (click)="openModal()"><i class="fa fa-plus"></i> Add Leave</a>
             </div>
         </div>
     </div>
@@ -146,7 +146,7 @@
                                 <div class="dropdown dropdown-action">
                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" (click)="editModal(leaveList)" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                     </div>
                                 </div>
@@ -166,8 +166,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Leave</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">{{title}} Leave</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -177,7 +177,7 @@
 
                         <div class="form-group">
                             <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
-                            <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
+                            <input disabled class="form-control floating" type="text" [(ngModel)]="leaveObj.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
                             <div  class="error" *ngIf="Leaveform.controls['opCompanyId'].hasError('required') && Leaveform.controls['opCompanyId'].touched">
                                 Company ID is Required</div>
                         </div>
@@ -186,16 +186,15 @@
 
                         <div class="form-group">
                             <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
-                            <input disabled class="form-control floating" type="text" [(ngModel)]="employeer.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
+                            <input disabled class="form-control floating" type="text" [(ngModel)]="leaveObj.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
                             <div  class="error" *ngIf="Leaveform.controls['opEmployeeId'].hasError('required') && Leaveform.controls['opEmployeeId'].touched">
-                                Company ID is Required</div>
+                                Employee ID is Required</div>
                         </div>
 
 
                             <div class="form-group">
                                 <label class="col-form-label">Leave Type  <span class="text-danger">*</span></label>
-                                <p-dropdown optionLabel="leavetype"  optionValue="leavetype" [options]="leavetype" [virtualScroll]="true" itemSize="30" [(ngModel)]="employeer.opleavetype" formControlName="opleavetype" [filter]="true"></p-dropdown>
-
+                                <p-dropdown optionLabel="leavetype"  optionValue="leavetype" [options]="leavecat" [virtualScroll]="true" itemSize="30" [(ngModel)]="leaveObj.opleavetype" formControlName="opleavetype" [filter]="true"></p-dropdown>
                                 <div class="error" *ngIf="Leaveform.controls['opleavetype'].hasError('required') && Leaveform.controls['opleavetype'].touched">
                                     Leave Type is Required</div>
                             </div>
@@ -203,36 +202,36 @@
                                 <div class="form-group">
                                     <label class="col-form-label">Start Date  <span class="text-danger">*</span></label>
                                     <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="opDatestart"
-                                     [(ngModel)]="employeer.opDatestart" [owlDateTimeTrigger]="dt1" placeholder="Date">
+                                     [(ngModel)]="leaveObj.opDatestart" [owlDateTimeTrigger]="dt1" placeholder="Date">
                                      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
     
                                     <div class="error" *ngIf="Leaveform.controls['opDatestart'].hasError('required') && Leaveform.controls['opDatestart'].touched">
-                                        Date of join is  Required</div>
+                                        Date  is  Required</div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">End Date  <span class="text-danger">*</span></label>
-                                    <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="opDateEnd"
-                                     [(ngModel)]="employeer.opDateEnd" [owlDateTimeTrigger]="dt1" placeholder="Date">
-                                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                    <input [owlDateTime]="dt2" [min]="minDate" class="form-control" formControlName="opDateEnd"
+                                     [(ngModel)]="leaveObj.opDateEnd" [owlDateTimeTrigger]="dt2" placeholder="Date">
+                                     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
     
                                     <div class="error" *ngIf="Leaveform.controls['opDateEnd'].hasError('required') && Leaveform.controls['opDateEnd'].touched">
-                                        Date of join is  Required</div>
+                                       End date is  Required</div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Number of days<span class="text-danger">*</span></label>
-                                    <input class="form-control" [(ngModel)]="employeer.opNodays" type="text" formControlName="opNodays" id="opNodays">
+                                    <input class="form-control" [(ngModel)]="leaveObj.opNodays" type="text" formControlName="opNodays" id="opNodays">
                                     <div class="error" *ngIf="Leaveform.controls['opNodays'].hasError('required') && Leaveform.controls['opNodays'].touched">
-                                        First Name is Required</div>
+                                        No of Days is Required</div>
     
                                 </div>
 
                             <div class="form-group">
                                 <label class="col-form-label">Leave Reason <span class="text-danger">*</span></label>
-                                <input class="form-control" [(ngModel)]="employeer.opReason" type="text" formControlName="opReason" id="opReason">
+                                <input class="form-control" [(ngModel)]="leaveObj.opReason" type="text" formControlName="opReason" id="opReason">
                                 <div class="error" *ngIf="Leaveform.controls['opReason'].hasError('required') && Leaveform.controls['opReason'].touched">
-                                    First Name is Required</div>
+                                    Reason is Required</div>
 
                             </div>
 

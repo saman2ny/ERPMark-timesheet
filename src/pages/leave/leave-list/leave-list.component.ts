@@ -13,69 +13,108 @@ declare function datatblesandIts(): any;
 
 
 @Component({
-  selector: 'app-leave-list',
-  templateUrl: './leave-list.component.html',
-  styleUrls: ['./leave-list.component.css']
+	selector: 'app-leave-list',
+	templateUrl: './leave-list.component.html',
+	styleUrls: ['./leave-list.component.css']
 })
 export class LeaveListComponent implements OnInit {
-  Leaveform: FormGroup;
-	employeer: any = {}
-  reqObj: any ={
-	  "moduleName": "leaveStatus"
-  }
-  user: any;
-  public minDate: any = new Date();
-  
-  leavecat: any = [];
+	Leaveform: FormGroup;
+	leaveObj: any = {}
+	reqObj: any = {
+		"moduleName": "leaveStatus"
+	}
+	user: any;
+	public minDate: any = new Date();
 
-  leaveLister: any = [];
+	public maxDate: any = new Date();
 
+	leavecat: any = [];
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
+	leaveLister: any = [];
+	menuType: any = {};
+	title: any = {}
+
+	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location
-	) { 
-    this.user = this.common.getUser();
-    this.apiService.post(this.constantsService.rolesList, {}).subscribe((succ: any) => {
-			if (succ.status === 200) {
-				this.common.hideLoading()
+	) {
 
-				
-        this.leavecat = succ.team
-				this.employeer.opLeavetype = this.leavecat[0]
-				
-			}
-			else {
-				this.common.hideLoading()
-				this.common.showErrorMessage(succ.message)
+	}
 
-			}
+	openModal(){
+		this.title ="Add"
+		this.preLoad()
 
-		}, err => {
-			this.common.hideLoading()
-			this.common.showErrorMessage(err.message)
-
+		// $("#add_client").modal('show');
+		$('#add_leave').modal({
+			backdrop: 'static',
+			keyboard: false
 		})
-  }
 
-  ngOnInit(): void {
-    this.leaveList()
-    datatblesandIts();
+	}
+	closeModal(){
+		$("#add_leave").modal('hide');
+		this.Leaveform.reset();
+		// this.preLoad()
+
+}
+
+editModal(leaveList){
+	this.title ="Edit"
+	this.leaveObj = leaveList
+	$('#add_leave').modal({
+		backdrop: 'static',
+		keyboard: false
+	})
+}
+
+preLoad()
+{
+	this.user = this.common.getUser();
+
+	this.menuType = this.user.data[0]['select'];
+	this.leaveObj.opCompanyId = this.user.data[0]['companyid'];
+	this.leaveObj.opEmployeeId = this.user.data[0]['employeeid'];
+	this.apiService.post(this.constantsService.rolesList, {}).subscribe((succ: any) => {
+		if (succ.status === 200) {
+			this.common.hideLoading()
+
+
+			this.leavecat = succ.leavecat
+			this.leaveObj.opleavetype = this.leavecat[0]
+
+		}
+		else {
+			this.common.hideLoading()
+			this.common.showErrorMessage(succ.message)
+
+		}
+
+	}, err => {
+		this.common.hideLoading()
+		this.common.showErrorMessage(err.message)
+
+	})
+}	
+ngOnInit(): void {
+		this.preLoad()
+		this.leaveList()
+		datatblesandIts();
 
 
 		this.Leaveform = this.formBuilder.group({
-			opCompanyId: ['', Validators.required],
-			opEmployeeId: ['', Validators.required],
-			opleavetype: ['', Validators.required],
-      opDatestart: ['', Validators.required],
-      opDateEnd: ['', Validators.required],
-      opNodays: ['', Validators.required],
-      opReason: ['', Validators.required]
+			opCompanyId: [''],
+			opEmployeeId: [''],
+			opleavetype: [''],
+			opDatestart: [''],
+			opDateEnd: [''],
+			opNodays: [''],
+			opReason: ['']
 
 		});
-  }
+	}
 
 
-  
+
 	goLeaveinsert() {
 
 		if (this.Leaveform.invalid) {
@@ -83,11 +122,13 @@ export class LeaveListComponent implements OnInit {
 			return;
 		} else {
 			this.common.hideLoading()
-			console.log(this.employeer, "employeer")
+			console.log(this.leaveObj, "leaveObj")
+
+						// Leave
+						this.leaveObj.opleavetype = this.leaveObj.opleavetype.leavetype;
 
 
-
-			this.apiService.post(this.constantsService.insertleave, this.employeer).subscribe((succ: any) => {
+			this.apiService.post(this.constantsService.insertleave, this.leaveObj).subscribe((succ: any) => {
 				if (succ.status === 200) {
 					this.common.hideLoading()
 					this.common.showSuccessMessage(succ.message);
@@ -95,41 +136,41 @@ export class LeaveListComponent implements OnInit {
 				else {
 					this.common.hideLoading()
 					this.common.showErrorMessage(succ.message)
-	
+
 				}
-	
+
 			}, err => {
 				this.common.hideLoading()
 				this.common.showErrorMessage(err.message)
-	
+
 			})
 
 		}
 	}
 
-  leaveList(){
-    this.common.showLoading()
-    this.apiService.post(this.constantsService.employeerList, this.reqObj).subscribe((succ: any) => {
+	leaveList() {
+		this.common.showLoading()
+		this.apiService.post(this.constantsService.employeerList, this.reqObj).subscribe((succ: any) => {
 
-      console.log(succ, "datataa")
-      // console.log(succ.data, "datataa")
-      if (succ.status === 200) {
-        this.common.hideLoading()
-        this.leaveLister = succ.data
-      }
-  
-      else {
-        this.common.hideLoading()
-        this.common.showErrorMessage(succ.message)
-  
-      }
+			console.log(succ, "datataa")
+			// console.log(succ.data, "datataa")
+			if (succ.status === 200) {
+				this.common.hideLoading()
+				this.leaveLister = succ.data
+			}
 
-    }, err => {
-      console.log("err", err)
-      this.common.hideLoading()			
-      this.common.showErrorMessage(err.message)
+			else {
+				this.common.hideLoading()
+				this.common.showErrorMessage(succ.message)
 
-    })
-  }
+			}
+
+		}, err => {
+			console.log("err", err)
+			this.common.hideLoading()
+			this.common.showErrorMessage(err.message)
+
+		})
+	}
 
 }

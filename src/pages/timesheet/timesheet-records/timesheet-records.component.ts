@@ -3,10 +3,8 @@ import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-
 import { ApiService } from 'src/service/api.service';
 import { CommonService } from 'src/service/common.service';
-
 import { ConstantsService } from 'src/service/constants.service';
 
 declare var $: any;
@@ -29,47 +27,61 @@ export class TimesheetRecordsComponent implements OnInit {
   reqObj: any = {
     "moduleName": "timeSheet"
   }
+ timesheetObj: any = {}
+  user: any;
+	public minDate: any = new Date();
+	title: any = {}
+	public maxDate: any = new Date();
   timeSheets: any = [];
+  menuType: any = {};
+  projectlist: any = [];
+  
   constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
     public constantsService: ConstantsService, private location: Location
   ) { }
 
+
+
+
+
+
   ngOnInit(): void {
+    this.preLoad()
     this.timeSheetList()
     datatblesandIts()
-    this.Edit = false
+    // this.Edit = false
 
 
     this.TimesheetForm = this.formBuilder.group({
-      opProjectName: ['', Validators.compose([Validators.required])],
-      opDate: ['', Validators.required],
-      opHours: ['', Validators.required],
-      opDesc: ['', Validators.required]
+      opCompanyId: [''],
+      opEmployeeId: [''],
+      opFirstname: [''],
+      opProjectname: [''],
+      opProjecthours: [''],
+      opDescription: ['']
+
     });
-
-
-    // Tasks List
-
-    // this.apiService.post(this.constantsService.getListTaks, {}).subscribe((succ: any) => {
-    //   this.listMainTasks = succ.data;
-
-    // }, err => {
-
-    // })
-
-
-
-
-
-
-
-
-
 
   }
 
 
+  openModal(){
+		this.title ="Atimesheetdd"
+		this.preLoad()
 
+		// $("#add_client").modal('show');
+		$('#addtimesheet').modal({
+			backdrop: 'static',
+			keyboard: false
+		})
+
+	}
+	closeModal(){
+		$("#addtimesheet").modal('hide');
+		this.TimesheetForm.reset();
+		// this.preLoad()
+
+}
 
 
 
@@ -103,47 +115,94 @@ export class TimesheetRecordsComponent implements OnInit {
   }
 
 
-  openModal(check, listTasks) {
-    if (check === "add") {
-      this.Edit = false
-      this.getNameForModel = "Add Work details"
-    } else {
-      this.getNameForModel = "Edit Work details";
-      this.Edit = true
-      //  Get Edit Call Employee
-      console.log(listTasks, "listTasks")
-      this.apiService.post(this.constantsService.getSingleTask, listTasks).subscribe((succ: any) => {
-        this.timesheetModel = succ.data;
+  // openModal(check, listTasks) {
+  //   if (check === "add") {
+  //     this.Edit = false
+  //     this.getNameForModel = "Add Work details"
+  //   } else {
+  //     this.getNameForModel = "Edit Work details";
+  //     this.Edit = true
+  //     //  Get Edit Call Employee
+  //     console.log(listTasks, "listTasks")
+  //     this.apiService.post(this.constantsService.getSingleTask, listTasks).subscribe((succ: any) => {
+  //       this.timesheetModel = succ.data;
 
 
-      }, err => {
+  //     }, err => {
 
-      })
+  //     })
 
-    }
-    $("#todaywork").modal('show')
-  }
+  //   }
+  //   $("#todaywork").modal('show')
+  // }
 
-  Save() {
-    if (this.TimesheetForm.invalid) {
-      this.TimesheetForm.markAllAsTouched();
-      return;
-    } else {
+
+
+  preLoad()
+  {
+    this.user = this.common.getUser();
+  
+    this.menuType = this.user.data[0]['select'];
+    this.timesheetObj.opCompanyId = this.user.data[0]['companyid'];
+    this.timesheetObj.opEmployeeId = this.user.data[0]['employeeid'];
+    this.timesheetObj.opFirstname = this.user.data[0]['firstname'];
+    this.apiService.post(this.constantsService.rolesList, {}).subscribe((succ: any) => {
+      if (succ.status === 200) {
+        this.common.hideLoading()
+  
+  
+        this.projectlist = succ.projectlist
+        this.timesheetObj.opProjectname = this.timesheetObj[0]
+
+      }
+      else {
+        this.common.hideLoading()
+        this.common.showErrorMessage(succ.message)
+  
+      }
+  
+    }, err => {
       this.common.hideLoading()
-      console.log(this.timesheetModel, "Check timesheetModel")
-      this.apiService.post(this.constantsService.saveTask, this.timesheetModel).subscribe((succ: any) => {
-        if (succ.code == 200) {
+      this.common.showErrorMessage(err.message)
+  
+    })
+  }	
 
-          $("#todaywork").modal('hide')
-          this.ngOnInit()
 
-        }
 
-      }, err => {
 
-      })
 
-    }
-  }
+  Timesheetinsert() {
+
+		if (this.TimesheetForm.invalid) {
+			this.TimesheetForm.markAllAsTouched();
+			return;
+		} else {
+			this.common.hideLoading()
+			console.log(this.timesheetObj, "timesheetObj")
+
+						// Leave
+            // this.timesheetObj.opProjectname = this.timesheetObj.opProjectname.projectname;
+
+
+			this.apiService.post(this.constantsService.inserttimesheetdata, this.timesheetObj).subscribe((succ: any) => {
+				if (succ.status === 200) {
+					this.common.hideLoading()
+					this.common.showSuccessMessage(succ.message);
+				}
+				else {
+					this.common.hideLoading()
+					this.common.showErrorMessage(succ.message)
+
+				}
+
+			}, err => {
+				this.common.hideLoading()
+				this.common.showErrorMessage(err.message)
+
+			})
+
+		}
+	}
 
 }

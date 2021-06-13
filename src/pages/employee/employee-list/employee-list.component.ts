@@ -311,7 +311,7 @@ this.plugins()
     this.apiService.post(this.constantsService.validateEmail, { emailid: userId }).subscribe((succ: any) => {
       
       
-      if (succ.code == 200) {
+      if (succ.status == 200) {
         this.isUniqueUserId = true;
         this.EmployeeeForm.get('empEmailId').setValidators([this.validateUserIdUnique()])
         this.EmployeeeForm.get('empEmailId').updateValueAndValidity();
@@ -401,7 +401,7 @@ this.plugins()
 			this.employeer.opTeamName = this.employeer.opTeamName.teamname;
 
 			this.apiService.post(this.constantsService.insertemployee, this.employeer).subscribe((succ: any) => {
-				if (succ.code === 200) {
+				if (succ.status === 200) {
 					this.common.hideLoading()
 					this.common.showSuccessMessage(succ.message);
 					this.closeModal()
