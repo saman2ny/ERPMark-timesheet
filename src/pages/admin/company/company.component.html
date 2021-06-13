@@ -1,18 +1,64 @@
-<!-- Page Content -->
-<div class="content container-fluid">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-        
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3 class="page-title">Company Settings</h3>
-                    </div>
-                </div>
+	<!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Company</h3>
             </div>
-            <!-- /Page Header -->
-            
+            <div class="col-auto float-right ml-auto">
+                <a href="#" class="btn add-btn" data-toggle="modal" (click)="openModal()" ><i class="fa fa-plus"></i> Add Company</a>
+                
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+
+    <div class="row staff-grid-row" >
+        <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" *ngFor="let employeee of companyList" >
+            <div class="profile-widget">
+                <div class="profile-img">
+                    <a (click)="editModal(employeee)" class="avatar">
+                        <img [src]="employeee.empimg | image"
+                        class="img-clup"  
+                        onerror="this.src='assets/img/portfolio-image14.jpg';"
+                        style="width:100% !important;" />
+                        <!-- <img alt="" src="../assets/img/profiles/avatar-21.jpg"> -->
+                    </a>
+                </div>
+                <div class="dropdown profile-action">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"  data-toggle="modal" (click)="editModal(employeee)" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_client"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                </div>
+                </div>
+                <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a (click)="editModal(employeee)"> Company Name</a></h4>
+                <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a (click)="editModal(employeee)">{{employeee.firstname}} {{employeee.lastname}}</a></h5>
+                <div class="small text-muted">{{employeee.designation}} </div>
+                <!-- <a href="chat.html" class="btn btn-white btn-sm m-t-10">Message</a> -->
+                <a (click)="editModal(employeee)" class="btn btn-white btn-sm m-t-10">View Profile</a>
+            </div>
+        </div>
+       
+</div>
+
+
+
+<!-- Add Client Modal -->
+<div id="add_company" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{title}} Company</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
 
             <form [formGroup]="CompanyForm">
                 <div class="row">
@@ -40,7 +86,9 @@
                         <div class="form-group">
                             <label>Birth Date <span class="text-danger">*</span></label>
                             <div class="cal-icon">
-                                <input class="form-control datetimepicker" type="text" [(ngModel)]="companyObj.birthDate" formControlName="birthDate" value="05/06/1985">
+                                <input [owlDateTime]="dt1" [min]="minDate" class="form-control" formControlName="birthDate"
+                                [(ngModel)]="companyObj.birthDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+                                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                                 <div class="error" *ngIf="CompanyForm.controls['birthDate'].hasError('required') && CompanyForm.controls['birthDate'].touched">
                                     Birth date is Required</div>
                             </div>                          
@@ -101,38 +149,8 @@
                                 Country is Required</div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label>City</label>
-                            <input class="form-control" value="Sherman Oaks" type="text" [(ngModel)]="companyObj.city" id="city" formControlName="city">
-                            
-                            <div class="error" *ngIf="CompanyForm.controls['city'].hasError('required') && CompanyForm.controls['city'].touched">
-                                City is Required</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label>State/Province</label>
-                            <select class="form-control select" id="state" [(ngModel)]="companyObj.state" formControlName="state">
-                                <option>California</option>
-                                <option>Alaska</option>
-                                <option>Alabama</option>
-                            </select>
-                            <div class="error" *ngIf="CompanyForm.controls['state'].hasError('required') && CompanyForm.controls['state'].touched">
-                                State is Required</div>
-
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label>Postal Code</label>
-                            <input class="form-control" value="91403" type="text" [(ngModel)]="companyObj.postalCode" id="postalCode" formControlName="postalCode">
-
-                            
-                            <div class="error" *ngIf="CompanyForm.controls['postalCode'].hasError('required') && CompanyForm.controls['postalCode'].touched">
-                                Postal code is Required</div>
-                        </div>
-                    </div>
+              
+                    
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
@@ -146,7 +164,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input class="form-control" value="818-978-7102" type="text" [(ngModel)]="companyObj.phoneNumber" id="phoneNumber" formControlName="phoneNumber">
+                            <!-- <input class="form-control" value="818-978-7102" type="text" [(ngModel)]="companyObj.phoneNumber" id="phoneNumber" formControlName="phoneNumber"> -->
+                           
+                            <ngx-intl-tel-input [cssClass]="'form-control'" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [maxLength]="15"  [separateDialCode]="separateDialCode"
+                              [(ngModel)]="companyObj.phoneNumber" [selectedCountryISO]="selectedCorpPreMobileNo"
+                            formControlName="phoneNumber" [onlyCountries]="CountryISO"  name="phone">
+                          </ngx-intl-tel-input>
+
                             <div class="error" *ngIf="CompanyForm.controls['phoneNumber'].hasError('required') && CompanyForm.controls['phoneNumber'].touched">
                                 Phone Number is Required</div>
                         </div>
@@ -177,14 +202,32 @@
                             <input class="form-control" value="Test@123" [(ngModel)]="companyObj.password" type="password" id="password" formControlName="password">
                             <div class="error" *ngIf="CompanyForm.controls['password'].hasError('required') && CompanyForm.controls['password'].touched">
                                 Password is Required</div>
+                                
+                                <div class="error"
+                                *ngIf="CompanyForm.get('password').hasError('minlength') && CompanyForm.get('password').touched">
+                                Please enter a new password at least 8 characters.
+                        
+                              </div>
+                              <div class="error"
+                                *ngIf="CompanyForm.get('password').hasError('maxlength') && CompanyForm.get('password').touched">
+                                Please enter a new password no more than 16 characters.
+                        
+                              </div>
+                              <div class="error"
+                                *ngIf="CompanyForm.get('password').hasError('pattern') && CompanyForm.get('password').touched">
+                                Must contain at least one number and one uppercase and special character
+                        
+                              </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input class="form-control" value="Test@123" [(ngModel)]="companyObj.confirmPassword" pattern="{{ companyObj.password }}" type="password" id="confirmPassword" formControlName="confirmPassword">
+                            <input class="form-control" value="Test@123" pattern="{{ companyObj.password }}" [(ngModel)]="companyObj.confirmPassword" pattern="{{ companyObj.password }}" type="password" id="confirmPassword" formControlName="confirmPassword">
                             <div class="error" *ngIf="CompanyForm.controls['confirmPassword'].hasError('required') && CompanyForm.controls['confirmPassword'].touched">
                                Confirm Password is Required</div>
+                               <div class="error" *ngIf="CompanyForm.get('confirmPassword').hasError('pattern')">
+                                Password dosen't match</div>
 
 
           <div class="error error-position" *ngIf="CompanyForm.get('confirmPassword').hasError('pattern')">
@@ -193,32 +236,22 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label>Website Url</label>
-                            <input class="form-control" value="https://www.example.com" type="text" [(ngModel)]="companyObj.website" id="website" formControlName="website">
-                            <div class="error" *ngIf="CompanyForm.controls['website'].hasError('required') && CompanyForm.controls['website'].touched">
-                                Website is Required</div>
-                        </div>
-                    </div>
-                </div>
+          
+            
 
-
-                <div class="form-group row">
-                    <label class="col-form-label col-md-12">File Input</label>
-                    <div class="col-md-12">
-                        <input class="form-control" type="file" [(ngModel)]="companyObj.perImg" id="perImg" formControlName="perImg">
-                          <div class="error" *ngIf="CompanyForm.controls['perImg'].hasError('required') && CompanyForm.controls['perImg'].touched">
-                                Image is Required</div>
-                    </div>
-                </div>
-
+                       
                 <div class="submit-section">
-                    <button class="btn btn-primary submit-btn"  (click)="Save()">Save</button>
+                    <button class="btn btn-primary submit-btn" *ngIf="title === 'Add' " (click)="Save()">Save</button>
+                    <button class="btn btn-primary submit-btn" *ngIf="title === 'Edit' " (click)="Edit()">Update</button>
                 </div>
+
             </form>
-        </div>
-    </div>
-</div>
-<!-- /Page Content -->
+
+
+
+
+
+            </div>
+                </div>
+                </div>
+            </div>

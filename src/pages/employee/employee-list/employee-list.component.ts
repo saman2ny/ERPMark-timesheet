@@ -14,6 +14,7 @@ import { CountriesService } from 'src/service/countries.service';
 // import * as $ from 'jquery'
 declare var $: any;
 declare function datatblesandIts(): any;
+import * as _ from 'lodash';
 
 
 
@@ -48,7 +49,7 @@ export class EmployeeListComponent implements OnInit {
 	title: any = {};
 
 	isUniqueUserId: boolean = true;
-
+	selectedCorpPreMobileNo =  this.common.defaultCountryCode
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private route: ActivatedRoute, public common: CommonService, private apiService: ApiService,
 		public constantsService: ConstantsService, private location: Location, public countryService: CountryService, public BankService:BankService, private CountriesService:CountriesService
@@ -180,7 +181,118 @@ this.plugins()
 	}
 	editModal(employeee){
 		this.title ="Edit"
-		this.employeer = employeee
+		console.log(employeee, "employeee")
+				this.employeer.opCompanyId = employeee.companyname
+				this.employeer.opEmployeeId = employeee.employeeid
+		
+				this.employeer.opFirstName = employeee.firstname
+				this.employeer.opLastName = employeee.lastname
+				this.employeer.opDateOfJoin = employeee.joiningdate
+				this.employeer.opGender = employeee.gender
+				this.employeer.opDateOfBirth = employeee.birthday
+				this.employeer.opAddress = employeee.address
+
+				this.employeer.opPhoneId = employeee.mobilenumber
+				var mobile = _.split(this.employeer.opPhoneId, '-', 2);
+				this.employeer.opPreMobileNo = mobile[0]
+				this.employeer.opPostMobileNo = mobile[1]
+	
+				var mobile = _.split(this.employeer.opPhoneId, '-', 2);
+	
+				this.EmployeeeForm.controls.opPhoneId.setValue(mobile[1]);
+	
+				let countryCode: any = this.allCounties.filter(element => {
+					return element[2] == mobile[0];
+				  });
+				  countryCode = countryCode[0]
+				// this.CountryISO = countryCode[0]
+				  this.selectedCorpPreMobileNo = countryCode[1];
+
+
+				this.employeer.opEmailId = employeee.emailaddress
+				this.employeer.opPassword = employeee.password
+				this.employeer.opConfirmPassword = employeee.password
+				this.employeer.opPanNo = employeee.panno
+				this.employeer.opAadharNo = employeee.aadharno
+				this.employeer.opIFSC = employeee.ifsc
+				this.employeer.opAcctNo = employeee.accountnumber
+				this.employeer.opPassport = employeee.visaexpirydate
+				this.employeer.opEmpImg = employeee.empimg
+
+
+				this.employeer.opRole = employeee.role
+				this.employeer.opSelectBranch = employeee.selectbranch
+				this.employeer.opEmpDesg = employeee.designation
+				this.employeer.opCountry = employeee.country
+				this.employeer.opBankName = employeee.bankname
+				// this.employeer.opTeamName = employeee.teamname
+				this.employeer.opEmpDepart = employeee.department
+
+				setTimeout(() => {
+
+
+					this.apiService.post(this.constantsService.rolesList, {}).subscribe((succ: any) => {
+						console.log(succ.department, "department")
+						if (succ.status === 200) {
+							this.common.hideLoading()
+				
+				
+							this.departmentList = succ.department
+							// this.employeer.opEmpDepart = this.departmentList[0]
+							this.employeer.opEmpDepart = this.departmentList.filter(element => {
+								return element.department == this.employeer.opEmpDepart;
+							  });
+							  this.employeer.opEmpDepart = this.employeer.opEmpDepart[0];
+				
+							this.roleList = succ.role
+								// this.employeer.opRole = this.roleList[0]
+							this.employeer.opRole = this.roleList.filter(element => {
+								return element.role == this.employeer.opRole;
+							  });
+							  this.employeer.opRole = this.employeer.opRole[0];
+				
+							this.branchList = succ.branch
+								// this.employeer.opSelectBranch = this.branchList[0]
+							this.employeer.opSelectBranch = this.branchList.filter(element => {
+								return element.branch == this.employeer.opSelectBranch;
+							  });
+							  this.employeer.opSelectBranch = this.employeer.opSelectBranch[0];
+				
+							this.designationList = succ.designation
+								// this.employeer.opEmpDesg = this.designationList[0]
+							this.employeer.opEmpDesg = this.designationList.filter(element => {
+								return element.branch == this.employeer.opEmpDesg;
+							  });
+							  this.employeer.opEmpDesg = this.employeer.opEmpDesg[0];
+				
+							// this.teamList = succ.team
+							// this.employeer.opTeamName = this.designationList.filter(element => {
+							// 	return element.teamname == this.employeer.opTeamName;
+							//   });
+							//   this.employeer.opTeamName = this.employeer.opTeamName[0];
+							
+						}
+						else {
+							this.common.hideLoading()
+							this.common.showErrorMessage(succ.message)
+				
+						}
+				
+					}, err => {
+						this.common.hideLoading()
+						this.common.showErrorMessage(err.message)
+				
+					})
+					
+			
+					  
+			
+			}, 1500);
+
+
+
+
+		// this.employeer = employeee
 		$('#add_client').modal({
 			backdrop: 'static',
 			keyboard: false
@@ -247,7 +359,19 @@ this.plugins()
 
 		}
 	}
-	goEmployeerLogin() {
+
+	EditEmployeerLogin()
+{
+	if (this.EmployeeeForm.invalid) {
+		this.EmployeeeForm.markAllAsTouched();
+		this.plugins()
+		return;
+	} else {
+		this.common.hideLoading()
+			console.log(this.employeer, "employeer")
+
+	}
+}	goEmployeerLogin() {
 
 		if (this.EmployeeeForm.invalid) {
 			this.EmployeeeForm.markAllAsTouched();

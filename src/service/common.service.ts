@@ -29,6 +29,7 @@ export class CommonService {
   customers: any;
   language: any;
   UserDetailEncryption: any="sd";
+  defaultCountryCode:any = ""
   constructor(public router: Router, public iziToast: Ng2IzitoastService) {
 
     this.user = sessionStorage.user;

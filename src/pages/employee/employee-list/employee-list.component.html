@@ -243,7 +243,7 @@
                                 <label class="col-form-label">Phone </label>
                                 <ngx-intl-tel-input [cssClass]="'form-control'" [enablePlaceholder]="true" [searchCountryFlag]="true"
                       [maxLength]="15"  [separateDialCode]="separateDialCode"
-                        [(ngModel)]="employeer.opPhoneId" 
+                        [(ngModel)]="employeer.opPhoneId" [selectedCountryISO]="selectedCorpPreMobileNo"
                       formControlName="opPhoneId" [onlyCountries]="CountryISO"  name="phone">
                     </ngx-intl-tel-input>
                                 <!-- <input class="form-control" type="text" [(ngModel)]="employeer.opPhoneId" formControlName="opPhoneId" id="opPhoneId"> -->
@@ -619,7 +619,8 @@
 
                     
                     <div class="submit-section">
-                        <button class="btn btn-primary submit-btn" (click)="goEmployeerLogin()">Submit</button>
+                        <button class="btn btn-primary submit-btn" *ngIf="title === 'Add' " (click)="goEmployeerLogin()">Save</button>
+                        <button class="btn btn-primary submit-btn" *ngIf="title === 'Edit' " (click)="EditEmployeerLogin()">Update</button>
                     </div>
                 </form>
             </div>
