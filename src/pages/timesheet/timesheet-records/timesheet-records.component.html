@@ -1,170 +1,180 @@
+<!-- Page Header -->
+<div class="page-header">
+  <div class="row align-items-center">
+    <div class="col">
+      <h3 class="page-title">Timesheet</h3>
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+        <li class="breadcrumb-item active">Timesheet</li>
+      </ul>
+    </div>
+    <div class="col-auto float-right ml-auto">
+      <a href="#" class="btn add-btn" data-toggle="modal" (click)="openModal('add', 'listTasks')"><i
+          class="fa fa-plus"></i> Add Today Work</a>
+    </div>
+  </div>
+</div>
 
 
-        <!-- Page Header -->
-        <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h3 class="page-title">Timesheet</h3>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Timesheet</li>
-                    </ul>
+
+
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-striped custom-table mb-0 datatable">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Date</th>
+            <th>Projects</th>
+            <th class="text-center">Assigned Hours</th>
+            <th class="text-center">Hours</th>
+            <th class="d-none d-sm-table-cell">Description</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let timeSheet of timeSheets">
+            <td>
+              <h2 class="table-avatar">
+                <a href="profile.html" class="avatar"><img alt="" src="assets/img/profiles/avatar-02.jpg"></a>
+                <a href="profile.html">{{timeSheet.empname}} <span>{{timeSheet.employeeid}}</span></a>
+              </h2>
+            </td>
+            <td>{{timeSheet.date}}</td>
+            <td>
+              <h2>{{timeSheet.project}}</h2>
+            </td>
+            <td class="text-center">{{timeSheet.assignedhours}}</td>
+            <td class="text-center">7</td>
+            <td class="d-none d-sm-table-cell col-md-4">{{timeSheet.description}}</td>
+            <td class="text-right">
+              <div class="dropdown dropdown-action">
+                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                    class="material-icons">more_vert</i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#" data-toggle="modal" (click)="openModal('edit', 'listTasks')"><i
+                      class="fa fa-pencil m-r-5"></i>
+                    Edit</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_workdetail"><i
+                      class="fa fa-trash-o m-r-5"></i>
+                    Delete</a>
                 </div>
-                <div class="col-auto float-right ml-auto">
-                    <a href="#" class="btn add-btn" data-toggle="modal" (click)="openModal('add', 'listTasks')" ><i
-                            class="fa fa-plus"></i> Add Today Work</a>
-                </div>
-            </div>
-        </div>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Add/ Edit Today Work Modal -->
+<div id="addtimesheet" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{title}} Time sheet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="TimesheetForm">
+
+
+
+          <div class="form-group">
+            <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
+            <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opCompanyId"
+              formControlName="opCompanyId" id="opCompanyId">
+            <div class="error"
+              *ngIf="TimesheetForm.controls['opCompanyId'].hasError('required') && TimesheetForm.controls['opCompanyId'].touched">
+              Company ID is Required</div>
+          </div>
+
+
+
+          <div class="form-group">
+            <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
+            <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opEmployeeId"
+              formControlName="opEmployeeId" id="opEmployeeId">
+            <div class="error"
+              *ngIf="TimesheetForm.controls['opEmployeeId'].hasError('required') && TimesheetForm.controls['opEmployeeId'].touched">
+              Employee ID is Required</div>
+          </div>
+
+
+
+
+          <div class="form-group">
+            <label class="col-form-label">Employee Name<span class="text-danger">*</span></label>
+            <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opFirstname"
+              formControlName="opFirstname" id="opFirstname">
+            <div class="error"
+              *ngIf="TimesheetForm.controls['opFirstname'].hasError('required') && TimesheetForm.controls['opFirstname'].touched">
+              Employee Name is Required</div>
+          </div>
+
+
+
+          <div class="form-group">
+            <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
+            <p-dropdown optionLabel="projectname" optionValue="projectname" [options]="projectlist"
+              [virtualScroll]="true" itemSize="30" [(ngModel)]="timesheetObj.opProjectname"
+              formControlName="opProjectname" id="opProjectname" [filter]="true"></p-dropdown>
+            <div class="error"
+              *ngIf="TimesheetForm.controls['opProjectname'].hasError('required') && TimesheetForm.controls['opProjectname'].touched">
+              Project Name is Required</div>
+          </div>
+
+
+
+          <div class="form-group">
+            <label class="col-form-label">Project Hours<span class="text-danger">*</span></label>
+            <input class="form-control floating" type="text" [(ngModel)]="timesheetObj.opProjecthours"
+              formControlName="opProjecthours" id="opProjecthours">
+            <div class="error"
+              *ngIf="TimesheetForm.controls['opProjecthours'].hasError('required') && TimesheetForm.controls['opProjecthours'].touched">
+              Project Hours is Required</div>
+          </div>
+
+
+
+          <div class="form-group">
+            <label class="col-form-label">Description <span class="text-danger">*</span></label>
+            <textarea class="form-control floating" type="text" [(ngModel)]="timesheetObj.opDescription"
+              formControlName="opDescription" id="opDescription" rows="3"></textarea>
+            <div class="error"
+              *ngIf="TimesheetForm.controls['opDescription'].hasError('required') && TimesheetForm.controls['opDescription'].touched">
+              Description is Required</div>
+          </div>
 
 
 
 
 
 
-        
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-striped custom-table mb-0 datatable">
-                        <thead>
-                            <tr>
-                                <th>Employee</th>
-                                <th>Date</th>
-                                <th>Projects</th>
-                                <th class="text-center">Assigned Hours</th>
-                                <th class="text-center">Hours</th>
-                                <th class="d-none d-sm-table-cell">Description</th>
-                                <th class="text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let timeSheet of timeSheets">
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt=""
-                                                src="assets/img/profiles/avatar-02.jpg"></a>
-                                        <a href="profile.html">{{timeSheet.empname}} <span>{{timeSheet.employeeid}}</span></a>
-                                    </h2>
-                                </td>
-                                <td>{{timeSheet.date}}</td>
-                                <td>
-                                    <h2>{{timeSheet.project}}</h2>
-                                </td>
-                                <td class="text-center">{{timeSheet.assignedhours}}</td>
-                                <td class="text-center">7</td>
-                                <td class="d-none d-sm-table-cell col-md-4">{{timeSheet.description}}</td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                            (click)="openModal('edit', 'listTasks')"><i class="fa fa-pencil m-r-5"></i>
-                                                Edit</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#delete_workdetail"><i class="fa fa-trash-o m-r-5"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
- 
-    
-
-        	<!-- Add/ Edit Today Work Modal -->
-				<div id="addtimesheet" class="modal custom-modal fade" role="dialog">
-					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title">{{tittle}} Time sheet</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="closeModal()">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-                                <form [formGroup]="TimesheetForm">
-									
-
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">Company ID <span class="text-danger">*</span></label>
-                                        <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opCompanyId"  formControlName="opCompanyId" id="opCompanyId">
-                                        <div  class="error" *ngIf="TimesheetForm.controls['opCompanyId'].hasError('required') && TimesheetForm.controls['opCompanyId'].touched">
-                                            Company ID is Required</div>
-                                                </div>
-            
-                                        
-            
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
-                                                    <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opEmployeeId"  formControlName="opEmployeeId" id="opEmployeeId">
-                                                    <div  class="error" *ngIf="TimesheetForm.controls['opEmployeeId'].hasError('required') && TimesheetForm.controls['opEmployeeId'].touched">
-                                                        Employee ID is Required</div>
-                                                            </div>
-
-                        
-            
-            
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Employee Name<span class="text-danger">*</span></label>
-                                                    <input disabled class="form-control floating" type="text" [(ngModel)]="timesheetObj.opFirstname"  formControlName="opFirstname" id="opFirstname">
-                                                    <div  class="error" *ngIf="TimesheetForm.controls['opFirstname'].hasError('required') && TimesheetForm.controls['opFirstname'].touched">
-                                                        Employee Name is Required</div>
-                                                </div>
-                        
-								
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
-                                        <p-dropdown optionLabel="projectname"  optionValue="projectname" [options]="projectlist" [virtualScroll]="true" itemSize="30" [(ngModel)]="timesheetObj.opProjectname" formControlName="opProjectname" id="opProjectname" [filter]="true"></p-dropdown>
-                                        <div class="error" *ngIf="TimesheetForm.controls['opProjectname'].hasError('required') && TimesheetForm.controls['opProjectname'].touched">
-                                            Project Name  is Required</div>
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">Project Hours<span class="text-danger">*</span></label>
-                                        <input class="form-control floating" type="text" [(ngModel)]="timesheetObj.opProjecthours"  formControlName="opProjecthours" id="opProjecthours">
-                                        <div  class="error" *ngIf="TimesheetForm.controls['opProjecthours'].hasError('required') && TimesheetForm.controls['opProjecthours'].touched">
-                                            Project Hours is Required</div>
-                                    </div>
-            
-
-
-                                    <div class="form-group">
-										<label class="col-form-label">Description <span class="text-danger">*</span></label>
-										<textarea class="form-control floating" type="text" [(ngModel)]="timesheetObj.opDescription"  formControlName="opDescription" id="opDescription" rows="3"></textarea>
-										<div class="error" *ngIf="TimesheetForm.controls['opDescription'].hasError('required') && TimesheetForm.controls['opDescription'].touched">
-											Description is Required</div>
-									</div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn" (click)="Timesheetinsert()">Submit</button>
+          </div>
 
 
 
 
 
 
-                                    <div class="submit-section">
-                                        <button class="btn btn-primary submit-btn" (click)="Timesheetinsert()">Submit</button>
-                                    </div>
-                
 
-
-
-
-
-								
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Add Today Work Modal -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Today Work Modal -->

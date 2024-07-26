@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import * as $ from 'jquery'
 // declare function myMethod(): any ;
-import { Ng2IzitoastService } from 'ng2-izitoast'
+import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 
 
@@ -30,7 +30,7 @@ export class CommonService {
   language: any;
   UserDetailEncryption: any="sd";
   defaultCountryCode:any = ""
-  constructor(public router: Router, public iziToast: Ng2IzitoastService) {
+  constructor(public router: Router, public toastr: ToastrService) {
 
     this.user = sessionStorage.user;
 
@@ -58,12 +58,11 @@ export class CommonService {
   
   
   showSuccessMessage(data) {
-    this.iziToast.show({ title: data, backgroundColor: "#52BE80", progressBarColor: "#717D7E", titleColor: "#FFFFFF", position: "topRight" });
+    this.toastr.success(data);
   }
 
   showErrorMessage(data) {
-    this.iziToast.show({ title: data, backgroundColor: "#E82929", progressBarColor: "#717D7E", titleColor: "#FFFFFF", position: "topRight" });
-
+    this.toastr.error(data)
   }
 
   b4Update(){
@@ -121,45 +120,7 @@ export class CommonService {
   }
 
 
-  downloadFile(file, fileName, fileFormat?) {
-    var newBlob = new Blob([file], { type: file.type });
 
-    // IE doesn't allow using a blob object directly as link href
-    // instead it is necessary to use msSaveOrOpenBlob
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      if (fileFormat == 'pdf') {
-       
-        window.navigator.msSaveOrOpenBlob(newBlob,fileName + ".pdf");
-      } else {
-        window.navigator.msSaveOrOpenBlob(newBlob,fileName + ".xlsx");
-  
-      }
-     
-      return;
-    }
-
-    // For other browsers: 
-    // Create a link pointing to the ObjectURL containing the blob.
-    const data = window.URL.createObjectURL(newBlob);
-
-    var link = document.createElement('a');
-    link.href = data;
-    if (fileFormat == 'pdf') {
-      link.download = fileName + ".pdf";
-
-    } else {
-      link.download = fileName + ".xlsx";
-
-    }
-    // this is necessary as link.click() does not work on the latest firefox
-    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-
-    setTimeout(function () {
-      // For Firefox it is necessary to delay revoking the ObjectURL
-      window.URL.revokeObjectURL(data);
-      link.remove();
-    }, 100);
-  }
   scheduledTimeFormat(those) {
     // console.log(those, "Date Check Format")
     // var dateTime: any = new Date(those);
@@ -216,39 +177,5 @@ export class CommonService {
     return new Date(finalDate);
 
   }
-  downloadDocs(file, fileName, fileFormat?) {
-    console.log(file);  
-    var newBlob = new Blob([file], { type: file.type });
 
-    // IE doesn't allow using a blob object directly as link href
-    // instead it is necessary to use msSaveOrOpenBlob
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(newBlob);
-      return;
-    }
-
-    // For other browsers: 
-    // Create a link pointing to the ObjectURL containing the blob.
-    const data = window.URL.createObjectURL(newBlob);
-
-    var link = document.createElement('a');
-    link.href = data;
-    link.download=fileName
-    // if (fileFormat == 'pdf') {
-    //   link.download = fileName + ".pdf";
-
-    // } else {
-    //   link.download = fileName + ".xlsx";
-
-    // }
-    // this is necessary as link.click() does not work on the latest firefox
-    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-
-    setTimeout(function () {
-      // For Firefox it is necessary to delay revoking the ObjectURL
-      window.URL.revokeObjectURL(data);
-      link.remove();
-    }, 100);
-  }
- 
 }

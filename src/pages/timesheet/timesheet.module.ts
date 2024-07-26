@@ -8,10 +8,9 @@ import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
 
 
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+// import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 import { TimesheetRecordsComponent } from './timesheet-records/timesheet-records.component';
 
@@ -33,11 +32,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    InfiniteScrollModule,
     DropdownModule,
     AutoCompleteModule,
     MultiSelectModule,
-    NgxIntlTelInputModule
+    // NgxIntlTelInputModule
   ],
   declarations: [TimesheetRecordsComponent]
 

@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
 
 
@@ -18,16 +16,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
+import { ToastrModule } from 'ngx-toastr';
 
-import { Ng2IziToastModule } from 'ng2-izitoast'
 import { ConstantsService } from 'src/service/constants.service';
 import { SpeechRecognitionServiceService } from 'src/service/speech-recognition-service.service';
 // import { ChangePasswordComponent } from 'src/pages/user/change-password/change-password.component';
 import { BasicAuthInterceptor } from 'src/guards/BasicAuthInterceptor';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 import { environment } from 'src/environments/environment';
-import { CountryService } from 'src/service/country.service';
 
 
 
@@ -46,17 +43,13 @@ import { CountryService } from 'src/service/country.service';
 
 
   ],
-  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpModule, HttpClientModule, FormsModule, ReactiveFormsModule, Ng2IziToastModule,
+  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClient, FormsModule, ReactiveFormsModule,
+    ToastrModule.forRoot(),
     // PipesModule.forRoot()
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
-
-   
-
   ],
-  providers: [CommonService, ApiService, ConstantsService, CountryService, SpeechRecognitionServiceService,
+  providers: [CommonService, ApiService, ConstantsService, SpeechRecognitionServiceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BasicAuthInterceptor,

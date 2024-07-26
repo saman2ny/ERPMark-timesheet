@@ -27,13 +27,7 @@ const routes: Routes = [
     path: 'ForgotPassword',
     component: ForgotPasswordComponent,
     
-  },
- 
-  // {
-  //   path: 'two-factor-auth', 
-  //   component: OtpComponent,
-    
-  // }
+  }
 ];
 
 @NgModule({
@@ -42,14 +36,8 @@ const routes: Routes = [
       CommonModule,
       RouterModule.forChild(routes),
       FormsModule,
-      ReactiveFormsModule,
-      InfiniteScrollModule
-
-            // TableModule,
-      
-
+      ReactiveFormsModule
     ],
-    entryComponents: [],
     declarations: [LoginComponent, ForgotPasswordComponent]
   })
 
